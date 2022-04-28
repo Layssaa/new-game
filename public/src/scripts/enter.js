@@ -1,4 +1,5 @@
-import { enterForm } from "./html-content";
+import { enterForm, mockGame } from "./html-content";
+import Player from "./classes/Player";
 import feedbacks from "./messages/feedbacks";
 
 const rootDiv = document.querySelector("#root");
@@ -23,12 +24,12 @@ try {
     } else if (nickname.value.length <= 0) {
       setMessage(feedbacks.SHORT_NICKNAME);
     } else {
-      feedbackMessage.innerHTML = "Usuário ok";
+      const newPlayer = new Player(nickname.value);
+      rootDiv.innerHTML = mockGame;
     }
   };
 
   enterButton.addEventListener("click", enter);
-  
 } catch (error) {
   rootDiv.innerHTML = "Página em manuntenção";
 }
