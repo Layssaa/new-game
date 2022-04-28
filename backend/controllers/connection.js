@@ -22,7 +22,7 @@ class Connection {
         JSON.stringify({
           action: "entry",
           msg: {
-            text: "invalid name",
+            text: "Repeated name",
           },
           ok: false,
           path: "/login",

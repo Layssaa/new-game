@@ -1,6 +1,4 @@
-const { Login } = require("../controllers/index");
-const { Logout } = require("../controllers/index");
-const { Walk } = require("../controllers/walk");
+const { Login, Logout, Walk } = require("../controllers/index");
 
 function login(data, ws, wss, WebSocket) {
   const loginUser = new Login(data, ws, wss, WebSocket);
@@ -10,6 +8,7 @@ function login(data, ws, wss, WebSocket) {
 function walk(data, ws, wss, WebSocket) {
   console.log("walk");
   const playerWalk = new Walk(data, ws, wss, WebSocket);
+  playerWalk.sendMovePlayer();
 }
 
 function logout(data, ws, wss, WebSocket) {
