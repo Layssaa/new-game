@@ -3,6 +3,7 @@ import Player from "./classes/Player";
 import feedbacks from "./messages/feedbacks";
 
 const rootDiv = document.querySelector("#root");
+let newPlayer = undefined;
 
 try {
   rootDiv.innerHTML = enterForm;
@@ -24,9 +25,15 @@ try {
     } else if (nickname.value.length <= 0) {
       setMessage(feedbacks.SHORT_NICKNAME);
     } else {
-      const newPlayer = new Player(nickname.value);
+      newPlayer = new Player(nickname.value);
       rootDiv.innerHTML = mockGame;
+      document.querySelector("#exit-button").addEventListener("click", exit);
     }
+  };
+
+  const exit = () => {
+    newPlayer.exit();
+    rootDiv.innerHTML = enterForm;
   };
 
   enterButton.addEventListener("click", enter);
