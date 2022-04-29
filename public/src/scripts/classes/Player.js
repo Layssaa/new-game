@@ -1,7 +1,7 @@
 class Player {
   constructor(_nickname) {
     this.nickname = _nickname;
-    this.socket = new WebSocket("ws://localhost:8080");
+    this.socket = new WebSocket("ws://localhost:5050");
     this.disabled = false;
     this.errors = [];
   }
