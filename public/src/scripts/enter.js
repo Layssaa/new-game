@@ -12,7 +12,7 @@ try {
   const enterButton = document.querySelector("#enter-button");
   const feedbackMessage = document.querySelector("#feedback-message");
 
-  setMessage = (text) => {
+  const setMessage = (text) => {
     feedbackMessage.innerHTML = text;
     setTimeout(() => {
       feedbackMessage.innerHTML = "";
