@@ -6,7 +6,6 @@ function login(data, ws, wss, WebSocket) {
 }
 
 function walk(data, ws, wss, WebSocket) {
-  console.log("walk");
   const playerWalk = new Walk(data, ws, wss, WebSocket);
   playerWalk.sendMovePlayer();
 }
