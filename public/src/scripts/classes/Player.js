@@ -14,13 +14,13 @@ class Player {
   }
 
   init() {
-    this.socket.addEventListener("open", () => {
+    this.socket.onopen = () => {
       this.controls(false);
-    });
+    };
 
-    this.socket.addEventListener("error", (err) => {
+    this.socket.onerror = (err) => {
       console.error(err);
-    });
+    };
   }
 
   exit() {
