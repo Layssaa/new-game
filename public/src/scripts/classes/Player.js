@@ -3,6 +3,7 @@ class Player {
     this.nickname = _nickname;
     this.socket = new WebSocket("ws://localhost:8080");
     this.disabled = false;
+    this.errors = [];
   }
 
   controls(enable) {
@@ -19,7 +20,10 @@ class Player {
     };
 
     this.socket.onerror = (err) => {
-      console.error(err);
+      this.errors.push({
+        created_at: new Date(),
+        error: err,
+      });
     };
   }
 
