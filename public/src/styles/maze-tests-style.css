@@ -1,0 +1,20 @@
+#maze
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.maze-row
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.maze-tile
+{
+    display: flex;
+    flex-direction: column;
+    border: solid 1px;
+    width: 30px;
+    height: 30px;
+}
