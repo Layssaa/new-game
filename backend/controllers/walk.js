@@ -1,5 +1,5 @@
 const { Connection } = require("./connection");
-const { channels } = require("../__mock__/data-mock");
+const { channels, moves } = require("../__mock__/data-mock");
 
 class Walk extends Connection {
   constructor(_data, _ws, _wss, _WebSocket) {
@@ -11,20 +11,17 @@ class Walk extends Connection {
     this.websocket;
   }
 
-  sendMovePlayer() {
+  sendMovesPlayer(moves) {
     channels[this.data.channel].forEach((client) => {
       const data = this.data;
+      moves[data.id] = moves;
 
       if (client.readyState === this.websocket.OPEN) {
         client.send(
           JSON.stringify({
+            status: 200,
             action: "walk",
-            move: {
-              x: data.x,
-              y: data.y,
-              color: data.color,
-              text: data.text,
-            },
+            moves,
             ok: true,
             path: "walk",
             chatList: this.chatList,

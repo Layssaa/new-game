@@ -1,5 +1,10 @@
 const crypto = require("crypto");
-const { playersWS, listUsers, channels } = require("../__mock__/data-mock");
+const {
+  playersWS,
+  listUsers,
+  channels,
+  moves,
+} = require("../__mock__/data-mock");
 
 class Connection {
   constructor(_data, _ws, _wss, _WebSocket) {
@@ -46,6 +51,10 @@ class Connection {
     if (!listUsers[this.data.id]) {
       listUsers[this.data.id] = this.data.name;
     }
+
+    if (!moves[this.data.id]) {
+      moves[this.data.id] = [];
+    }
   }
 
   playersObjectWS() {
@@ -79,18 +88,18 @@ class Connection {
     channels[this.data.channel].push(this.ws);
   }
 
-  sendMessage(_name, _message, _path, _action) {
+  sendMessage({ name, path, action, params }) {
     channels[this.data.channel].forEach((client) => {
       if (client.readyState === this.websocket.OPEN) {
         client.send(
           JSON.stringify({
-            action: _action,
-            name: _name,
-            msg: {
-              text: _message,
+            action,
+            name,
+            message: {
+              ...params,
             },
             hour: this.hour,
-            path: _path,
+            path,
             chatList: this.chatList,
           })
         );
