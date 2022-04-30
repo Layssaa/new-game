@@ -4,6 +4,8 @@ class Player {
     this.socket = new WebSocket("ws://localhost:5050");
     this.disabled = false;
     this.errors = [];
+    this.channel = "general";
+    this.data = undefined;
   }
 
   controls(enable) {
@@ -25,6 +27,33 @@ class Player {
         error: err,
       });
     };
+  }
+
+  sendWalk(param) {
+    this.socket.send({
+      ...param,
+      path: "walk",
+      id: this.data.id,
+      channel: this.data.channel,
+    });
+  }
+
+  sendLogIn(param) {
+    this.socket.send({
+      ...param,
+      path: "login",
+      id: this.data.id,
+      channel: this.data.channel,
+    });
+  }
+
+  sendLogOut(param) {
+    this.socket.send({
+      ...param,
+      path: "logout",
+      id: this.data.id,
+      channel: this.data.channel,
+    });
   }
 
   exit() {
