@@ -13,18 +13,11 @@ class Walk extends Connection {
 
   sendMovePlayer() {
     channels[this.data.channel].forEach((client) => {
-      const data = this.data;
-
       if (client.readyState === this.websocket.OPEN) {
         client.send(
           JSON.stringify({
             action: "walk",
-            move: {
-              x: data.x,
-              y: data.y,
-              color: data.color,
-              text: data.text,
-            },
+            move: undefined,
             ok: true,
             path: "walk",
             chatList: this.chatList,
