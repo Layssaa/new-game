@@ -2,19 +2,13 @@ export class MatrixGenerator
 {
     #numberOfRows;
     #numberOfColumns;
-    #lastRowIndex;
-    #lastColumnIndex;
     #matrix;
-    #startTiles;
-    #endTile;
     #numberOfPlayers;
 
     constructor(_numberOfRows, _numberOfColumns, _numberOfPlayers)
     {
         this.#numberOfRows = _numberOfRows;
         this.#numberOfColumns = _numberOfColumns;
-        this.#lastRowIndex = this.#numberOfRows - 1;
-        this.#lastColumnIndex = this.#numberOfColumns - 1;
         this.#numberOfPlayers = _numberOfPlayers;
     }
 
@@ -29,14 +23,12 @@ export class MatrixGenerator
         let matrix = [];
         let matrixRow = [];
 
-        for (let rowIndex = 0; rowIndex <= this.#lastRowIndex  ; rowIndex++)
+        for (let rowIndex = 0; rowIndex < this.#numberOfRows; rowIndex++)
         {
-            for (let columnIndex = 0; columnIndex <= this.#lastColumnIndex; columnIndex++)
+            for (let columnIndex = 0; columnIndex < this.#numberOfColumns; columnIndex++)
             {
 
                 let tileObject = {
-                    row: rowIndex + 1,
-                    column: columnIndex + 1,
                     rowIndex: rowIndex,
                     columnIndex: columnIndex,
                     tileType: "path",
@@ -53,26 +45,27 @@ export class MatrixGenerator
 
         this.#chooseEndTile(matrix);
         this.#chooseStartTile(matrix);
+        // matrix[0][0].tileType = "start";
+        // matrix[this.#numberOfRows - 1][this.#numberOfColumns - 1].tileType = "end";
+
+        console.log("Start positions are: ", matrix[0][0]);
+        console.log("End Is: ", matrix[this.#numberOfRows - 1][this.#numberOfColumns - 1]);
 
         this.#matrix = matrix;
 
-        console.log(this.#matrix);
-        console.log("Start positions are: ", this.#startTiles);
-        console.log("End Is: ", this.#endTile);
+        console.log("Matrix: ", this.#matrix);
     }
 
     #chooseEndTile(_matrix)
     {
-        _matrix[this.#lastRowIndex][this.#getRandomNumber(0, this.#lastColumnIndex)].tileType = "end";
-
-        this.#endTile = _matrix[this.#lastRowIndex].find(end => end.tileType === "end");
+        _matrix[this.#numberOfRows - 1][this.#getRandomNumber(0, this.#numberOfColumns - 1)].tileType = "end";
     }
 
     #chooseStartTile(_matrix)
     {
         for (let player = 1; player <= this.#numberOfPlayers; player++)
         {
-            let numberGetRandomly = this.#getRandomNumber(0, this.#lastColumnIndex);
+            let numberGetRandomly = this.#getRandomNumber(0, this.#numberOfColumns - 1);
 
             if(_matrix[0][numberGetRandomly].tileType === "start")
             {
@@ -81,10 +74,6 @@ export class MatrixGenerator
 
             _matrix[0][numberGetRandomly].tileType = "start";
         }
-
-        this.#startTiles = _matrix[0].filter((_start) => {
-            return _start.tileType === "start";
-        });
     }
 
     #getRandomNumber(_min, _max)
