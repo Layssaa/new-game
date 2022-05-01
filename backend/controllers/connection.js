@@ -23,6 +23,7 @@ class Connection {
     if (this.chatList.find((obj) => obj.name === this.data.name)) {
       this.ws.send(
         JSON.stringify({
+          status: 401,
           action: "entry",
           msg: {
             text: "Repeated name",
@@ -69,6 +70,7 @@ class Connection {
     if (!channels[this.data.channel]) {
       this.ws.send(
         JSON.stringify({
+          status: 401,
           action: "entry",
           msg: {
             text: "invalid channel",
@@ -91,6 +93,7 @@ class Connection {
       if (client.readyState === this.websocket.OPEN) {
         client.send(
           JSON.stringify({
+            status: 200,
             action,
             name,
             msg: {

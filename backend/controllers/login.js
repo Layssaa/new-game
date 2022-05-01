@@ -51,6 +51,7 @@ class Login extends Connection {
   async notifyUser() {
     this.ws.send(
       JSON.stringify({
+        status: 200,
         action: "login",
         msg: {
           text: "Login Ok",
