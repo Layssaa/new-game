@@ -1,4 +1,4 @@
-import { MazeRenderizer } from "./classes/MazeRenderizer.js"
+import { MazeRenderizer } from "./classes/MazeRenderizer.js";
 
 function game() {
   const canvas = document.querySelector("canvas");
@@ -24,54 +24,54 @@ function game() {
 
   //posições aleatórias em que o player pode começar no labirinto
   const startPositions = [
-      {
-        x:tileSize * 2,
-        y: tileSize * 2
-      },
+    {
+      x: tileSize * 2,
+      y: tileSize * 2,
+    },
 
-      {
-        x:tileSize * 2,
-        y: tileSize * 11
-      },
+    {
+      x: tileSize * 2,
+      y: tileSize * 11,
+    },
 
-      {
-        x: tileSize * 6,
-        y: tileSize * 2
-      },
+    {
+      x: tileSize * 6,
+      y: tileSize * 2,
+    },
 
-      {
-        x:tileSize * 6,
-        y: tileSize * 7
-      },
+    {
+      x: tileSize * 6,
+      y: tileSize * 7,
+    },
 
-      {
-        x: tileSize * 11,
-        y: tileSize * 6
-      },
+    {
+      x: tileSize * 11,
+      y: tileSize * 6,
+    },
 
-      {
-        x:tileSize * 2,
-        y: tileSize * 2
-      }
-  ]
+    {
+      x: tileSize * 2,
+      y: tileSize * 2,
+    },
+  ];
 
   //geração do index aleatório
   let positionRandom = Math.floor(Math.random() * startPositions.length);
 
-  console.log(startPositions[positionRandom])
+  console.log(startPositions[positionRandom]);
 
   //arrays para armazenar o que é parede (1), e o que é porta de saída (2)
   let walls = [];
-  let doors =[];
+  let doors = [];
 
   //objeto player
   let player = {
     // x: tileSize + 2,
     // y: tileSize + 2,
-    x: startPositions[positionRandom].x - (tileSize/2 + 56/2),
-    y: startPositions[positionRandom].y - (tileSize/2 + 56/2),
-    width: tileSize/2,
-    height: tileSize/2,
+    x: startPositions[positionRandom].x - (tileSize / 2 + 56 / 2),
+    y: startPositions[positionRandom].y - (tileSize / 2 + 56 / 2),
+    width: tileSize / 2,
+    height: tileSize / 2,
     speed: 8,
   };
 
@@ -88,7 +88,7 @@ function game() {
     [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1],
     [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1],
     [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   ];
 
   const totalWidth = maze[0].length * tileSize;
@@ -96,18 +96,15 @@ function game() {
 
   //loop para armazenar os nºs 1 e 2 nos arrays de paredes e portas de saída
   for (let row in maze) {
-
     for (let column in maze[row]) {
-
-
       let tile = maze[row][column];
 
       if (tile === 1) {
         let wall = {
-            x: tileSize*column,
-            y: tileSize*row,
-            width: tileSize,
-            height: tileSize
+          x: tileSize * column,
+          y: tileSize * row,
+          width: tileSize,
+          height: tileSize,
         };
 
         walls.push(wall);
@@ -115,10 +112,10 @@ function game() {
 
       if (tile === 2) {
         let door = {
-            x: tileSize*column,
-            y: tileSize*row,
-            width: tileSize,
-            height: tileSize
+          x: tileSize * column,
+          y: tileSize * row,
+          width: tileSize,
+          height: tileSize,
         };
         doors.push(door);
       }
@@ -127,32 +124,32 @@ function game() {
 
   //objeto câmera
   let cam = {
-      x: 0,
-      y: 0,
-      width: width,
-      height: height,
-      innerLeftBoundary: function(){
-          return this.x + (this.width*0.25);
-      },
-      innerTopBoundary: function(){
-        return this.y + (this.height*0.25);
-      },
-      innerRightBoundary: function(){
-          return this.x + (this.width*0.75);
-      },
-      innerBottomBoundary: function(){
-          return this.y + (this.height*0.75);
-      }
+    x: 0,
+    y: 0,
+    width: width,
+    height: height,
+    innerLeftBoundary: function () {
+      return this.x + this.width * 0.25;
+    },
+    innerTopBoundary: function () {
+      return this.y + this.height * 0.25;
+    },
+    innerRightBoundary: function () {
+      return this.x + this.width * 0.75;
+    },
+    innerBottomBoundary: function () {
+      return this.y + this.height * 0.75;
+    },
   };
 
-//player, wall - função de reconhecimento de colisão do player com a parede
+  //player, wall - função de reconhecimento de colisão do player com a parede
   // function blockRectangle(objA, objB){
   //   let distX = (objA.x + objA.width/2) - (objB.x + objB.width/2);
   //   let distY = (objA.y + objA.height/2) - (objB.y + objB.height/2);
 
   //   let sumWidth = (objA.width + objB.width)/2;
   //   let sumHeight = (objA.height + objB.height)/2;
-    
+
   //   if(Math.abs(distX) < sumWidth && Math.abs(distY) < sumHeight){
   //       let overlapX = sumWidth - Math.abs(distX);
   //       let overlapY = sumHeight - Math.abs(distY);
@@ -165,14 +162,14 @@ function game() {
   //   }
   // }
 
-//player, door - função de reconhecimento de colisão do player com a porta de saída
+  //player, door - função de reconhecimento de colisão do player com a porta de saída
   // function winnerMessage(objA, objB){
   //   let distX = (objA.x + objA.width/2) - (objB.x + objB.width/2);
   //   let distY = (objA.y + objA.height/2) - (objB.y + objB.height/2);
 
   //   let sumWidth = (objA.width + objB.width)/2;
   //   let sumHeight = (objA.height + objB.height)/2;
-    
+
   //   if(Math.abs(distX) < sumWidth && Math.abs(distY) < sumHeight){
   //       let overlapX = sumWidth - Math.abs(distX);
   //       let overlapY = sumHeight - Math.abs(distY);
@@ -261,7 +258,6 @@ function game() {
   //   cam.y = Math.max(0, Math.min(totalHeight - cam.height + 150, cam.y));
   // }
 
-  
   //desenho do labirinto e player no canvas
   function render() {
     context.clearRect(0, 0, width, height);
@@ -296,7 +292,13 @@ game();
 
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
-console.log(context)
+console.log(context);
 
 const maze = new MazeRenderizer(canvas, context);
+maze.changeTeste(function () {
+  return requestAnimationFrame(function () {
+    maze.renderizeCanvas();
+  }, maze.canvas);
+});
+
 maze.renderizeMaze();
