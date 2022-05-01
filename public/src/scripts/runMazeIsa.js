@@ -1,6 +1,6 @@
-import { MazeRenderizer } from "./classes/MazeRenderizer.js";
+import { Game } from "./classes/MazeRenderizer.js";
 
-function game() {
+function gamefunc() {
   const canvas = document.querySelector("canvas");
   const context = canvas.getContext("2d");
 
@@ -9,15 +9,15 @@ function game() {
   const height = canvas.height;
 
   //variáveis para mover o player
-  // let LEFT = 37;
-  // let UP = 38;
-  // let RIGHT = 39;
-  // let DOWN = 40;
+  let LEFT = 37;
+  let UP = 38;
+  let RIGHT = 39;
+  let DOWN = 40;
 
-  // let mvLeft = false;
-  // let mvUp = false;
-  // let mvRight = false;
-  // let mvDown = false;
+  let mvLeft = false;
+  let mvUp = false;
+  let mvRight = false;
+  let mvDown = false;
 
   //tamanho da parede do labirinto em px
   const tileSize = 30;
@@ -143,120 +143,121 @@ function game() {
   };
 
   //player, wall - função de reconhecimento de colisão do player com a parede
-  // function blockRectangle(objA, objB){
-  //   let distX = (objA.x + objA.width/2) - (objB.x + objB.width/2);
-  //   let distY = (objA.y + objA.height/2) - (objB.y + objB.height/2);
+  function blockRectangle(objA, objB){
+    let distX = (objA.x + objA.width/2) - (objB.x + objB.width/2);
+    let distY = (objA.y + objA.height/2) - (objB.y + objB.height/2);
 
-  //   let sumWidth = (objA.width + objB.width)/2;
-  //   let sumHeight = (objA.height + objB.height)/2;
+    let sumWidth = (objA.width + objB.width)/2;
+    let sumHeight = (objA.height + objB.height)/2;
 
-  //   if(Math.abs(distX) < sumWidth && Math.abs(distY) < sumHeight){
-  //       let overlapX = sumWidth - Math.abs(distX);
-  //       let overlapY = sumHeight - Math.abs(distY);
+    if(Math.abs(distX) < sumWidth && Math.abs(distY) < sumHeight){
+        let overlapX = sumWidth - Math.abs(distX);
+        let overlapY = sumHeight - Math.abs(distY);
 
-  //       if(overlapX > overlapY){
-  //           objA.y = distY > 0 ? objA.y + overlapY : objA.y - overlapY;
-  //       } else {
-  //           objA.x = distX > 0 ? objA.x + overlapX : objA.x - overlapX;
-  //       }
-  //   }
-  // }
+        if(overlapX > overlapY){
+            objA.y = distY > 0 ? objA.y + overlapY : objA.y - overlapY;
+        } else {
+            objA.x = distX > 0 ? objA.x + overlapX : objA.x - overlapX;
+        }
+    }
+  }
 
   //player, door - função de reconhecimento de colisão do player com a porta de saída
-  // function winnerMessage(objA, objB){
-  //   let distX = (objA.x + objA.width/2) - (objB.x + objB.width/2);
-  //   let distY = (objA.y + objA.height/2) - (objB.y + objB.height/2);
+  function winnerMessage(objA, objB){
+    let distX = (objA.x + objA.width/2) - (objB.x + objB.width/2);
+    let distY = (objA.y + objA.height/2) - (objB.y + objB.height/2);
 
-  //   let sumWidth = (objA.width + objB.width)/2;
-  //   let sumHeight = (objA.height + objB.height)/2;
+    let sumWidth = (objA.width + objB.width)/2;
+    let sumHeight = (objA.height + objB.height)/2;
 
-  //   if(Math.abs(distX) < sumWidth && Math.abs(distY) < sumHeight){
-  //       let overlapX = sumWidth - Math.abs(distX);
-  //       let overlapY = sumHeight - Math.abs(distY);
+    if(Math.abs(distX) < sumWidth && Math.abs(distY) < sumHeight){
+        let overlapX = sumWidth - Math.abs(distX);
+        let overlapY = sumHeight - Math.abs(distY);
 
-  //       if((overlapX > overlapY) || !(overlapX > overlapY)){
-  //           console.log("ganhou")
-  //       }
-  //       //aqui dá um bugzinho, executa muitas vezes o console enquanto o player estiver na mesma posição da porta de saída, tem que botar algo pra finalizar o jogo
-  //   }
-  // }
+        if((overlapX > overlapY) || !(overlapX > overlapY)){
+            console.log("ganhou")
+        }
+        //aqui dá um bugzinho, executa muitas vezes o console enquanto o player estiver na mesma posição da porta de saída, tem que botar algo pra finalizar o jogo
+        // sujestão: retirar o objeto player do jogo
+    }
+  }
 
   //entradas das setas do teclado
-  // window.addEventListener("keydown", keydownHandler, false);
-  // window.addEventListener("keyup", keyupHandler, false);
+  window.addEventListener("keydown", keydownHandler, false);
+  window.addEventListener("keyup", keyupHandler, false);
 
-  // function keydownHandler(e) {
-  //   let key = e.keyCode;
-  //   switch (key) {
-  //     case LEFT:
-  //       mvLeft = true;
-  //       break;
-  //     case UP:
-  //       mvUp = true;
-  //       break;
-  //     case RIGHT:
-  //       mvRight = true;
-  //     case DOWN:
-  //       mvDown = true;
-  //       break;
-  //   }
-  // }
+  function keydownHandler(e) {
+    let key = e.keyCode;
+    switch (key) {
+      case LEFT:
+        mvLeft = true;
+        break;
+      case UP:
+        mvUp = true;
+        break;
+      case RIGHT:
+        mvRight = true;
+      case DOWN:
+        mvDown = true;
+        break;
+    }
+  }
 
-  // function keyupHandler(e) {
-  //   let key = e.keyCode;
-  //   switch (key) {
-  //     case LEFT:
-  //       mvLeft = false;
-  //       break;
-  //     case UP:
-  //       mvUp = false;
-  //       break;
-  //     case RIGHT:
-  //       mvRight = false;
-  //     case DOWN:
-  //       mvDown = false;
-  //       break;
-  //   }
-  // }
+  function keyupHandler(e) {
+    let key = e.keyCode;
+    switch (key) {
+      case LEFT:
+        mvLeft = false;
+        break;
+      case UP:
+        mvUp = false;
+        break;
+      case RIGHT:
+        mvRight = false;
+      case DOWN:
+        mvDown = false;
+        break;
+    }
+  }
 
-  // function update() {
-  //   //movimento do player
-  //   if (mvLeft && !mvRight) {
-  //     player.x -= player.speed;
-  //   } else if (mvRight && !mvLeft) {
-  //     player.x += player.speed;
-  //   } else if (mvUp && !mvDown) {
-  //     player.y -= player.speed;
-  //   } else if (mvDown && !mvUp) {
-  //     player.y += player.speed;
-  //   }
+  function update() {
+    //movimento do player
+    if (mvLeft && !mvRight) {
+      player.x -= player.speed;
+    } else if (mvRight && !mvLeft) {
+      player.x += player.speed;
+    } else if (mvUp && !mvDown) {
+      player.y -= player.speed;
+    } else if (mvDown && !mvUp) {
+      player.y += player.speed;
+    }
 
-  //   for(let i in walls){
-  //       let wall = walls[i];
-  //       blockRectangle(player, wall);
-  //   }
+    for(let i in walls){
+        let wall = walls[i];
+        blockRectangle(player, wall);
+    }
 
-  //   for(let i in doors){
-  //     let door = doors[i];
-  //     winnerMessage(player, door);
-  // }
+    for(let i in doors){
+      let door = doors[i];
+      winnerMessage(player, door);
+    }
 
-  //   if(player.x < cam.innerLeftBoundary()){
-  //       cam.x = player.x - (cam.width * 0.25);
-  //   }
-  //   if(player.y < cam.innerTopBoundary()){
-  //       cam.y = player.y - (cam.height * 0.25);
-  //   }
-  //   if(player.x + player.width > cam.innerRightBoundary()){
-  //       cam.x = player.x + player.width - (cam.width * 0.75);
-  //   }
-  //   if(player.y + player.height > cam.innerBottomBoundary()){
-  //       cam.y = player.y + player.height - (cam.height * 0.75);
-  //   }
+    if(player.x < cam.innerLeftBoundary()){
+        cam.x = player.x - (cam.width * 0.25);
+    }
+    if(player.y < cam.innerTopBoundary()){
+        cam.y = player.y - (cam.height * 0.25);
+    }
+    if(player.x + player.width > cam.innerRightBoundary()){
+        cam.x = player.x + player.width - (cam.width * 0.75);
+    }
+    if(player.y + player.height > cam.innerBottomBoundary()){
+        cam.y = player.y + player.height - (cam.height * 0.75);
+    }
 
-  //   cam.x = Math.max(0, Math.min(totalWidth - cam.width + 150, cam.x));
-  //   cam.y = Math.max(0, Math.min(totalHeight - cam.height + 150, cam.y));
-  // }
+    cam.x = Math.max(0, Math.min(totalWidth - cam.width + 150, cam.x));
+    cam.y = Math.max(0, Math.min(totalHeight - cam.height + 150, cam.y));
+  }
 
   //desenho do labirinto e player no canvas
   function render() {
@@ -273,32 +274,48 @@ function game() {
         }
       }
     }
-    // context.fillStyle = "#00f";
-    // context.fillRect(player.x, player.y, player.width, player.height);
-    // context.restore();
+    context.fillStyle = "#00f";
+    context.fillRect(player.x, player.y, player.width, player.height);
+    context.restore();
   }
 
   function loop() {
-    // update();
+    update();
     render();
-    // requestAnimationFrame(loop, canvas);
+    requestAnimationFrame(loop, canvas);
   }
   requestAnimationFrame(loop, canvas);
 }
 
-game();
+// game();
 
 // ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
-console.log(context);
 
-const maze = new MazeRenderizer(canvas, context);
-maze.changeTeste(function () {
-  return requestAnimationFrame(function () {
-    maze.renderizeCanvas();
-  }, maze.canvas);
-});
+export const keys = {
+  left: 37,
+  up: 38,
+  right: 39,
+  down: 40
+};
 
-maze.renderizeMaze();
+export const move = {
+  moveLeft: false,
+  moveUp: false,
+  moveRight: false,
+  moveDown: false,
+};
+
+const game = new Game(canvas, context);
+
+game.loop = () => {
+  game.update();
+  game.renderizeCanvas();
+  requestAnimationFrame(game.loop, canvas);
+}
+
+requestAnimationFrame(game.loop, canvas);
+
+game.renderizeMaze();
