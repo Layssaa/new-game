@@ -4,10 +4,7 @@ class Disconnection {
   constructor(_data, _ws, _wss, _WebSocket) {
     this.user;
     this.channel;
-    this.idUser;
-    this.listPlayers = [];
     this.data = _data;
-    this.clients = [];
     this.hour = new Date().toLocaleTimeString();
     this.ws = _ws;
     this.wss = _wss;

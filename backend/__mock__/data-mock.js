@@ -5,6 +5,8 @@ let channels = {
   general: [],
 };
 
+let winner = {};
+
 let actualPlayer;
 
 let moves = {
@@ -15,6 +17,7 @@ module.exports = {
   playersWS,
   listUsers,
   channels,
-  actualPlayer, 
+  actualPlayer,
   moves,
+  winner,
 };

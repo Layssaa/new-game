@@ -4,16 +4,14 @@ const {
   listUsers,
   channels,
   moves,
+  winner,
 } = require("../__mock__/data-mock");
 
 class Connection {
   constructor(_data, _ws, _wss, _WebSocket) {
     this.user;
     this.channel;
-    this.idUser;
-    this.listPlayers = [];
     this.data = _data;
-    this.clients = [];
     this.hour = new Date().toLocaleTimeString();
     this.ws = _ws;
     this.wss = _wss;
@@ -95,7 +93,7 @@ class Connection {
           JSON.stringify({
             action,
             name,
-            message: {
+            msg: {
               ...params,
             },
             hour: this.hour,
@@ -105,6 +103,29 @@ class Connection {
         );
       }
     });
+  }
+
+  refuseConnection({ action, path, description }) {
+    console.log("========================");
+    console.log("refused");
+    console.log("========================");
+
+    return this.ws.send(
+      JSON.stringify({
+        status: 401,
+        action,
+        msg: {
+          text: "Request refuse",
+          description,
+        },
+        ok: false,
+        path,
+        hour: this.hour,
+        channel: this.data.channel,
+        chatList: this.chatList,
+        id: this.data.id,
+      })
+    );
   }
 
   getChatList() {
@@ -118,6 +139,12 @@ class Connection {
       return;
     });
   }
+
+  setWinner({ id, name }) {
+    winner.id = id;
+    winner.name =  name;
+  }
+
 }
 
 module.exports = { Connection };

@@ -12,22 +12,29 @@ class Walk extends Connection {
   }
 
   sendMovesPlayer() {
-    const data = this.data;
-    moves[data.id] = data.move;
+    const { id, move, channel } = this.data;
 
-    channels[this.data.channel].forEach((client) => {
+    // if (this.winnner.id) {
+    //   return super.refuseConnection({ action, path, description: "end game" });
+    // }
+
+    moves[id] = move;
+
+    channels[channel].forEach((client) => {
       if (client.readyState === this.websocket.OPEN) {
         client.send(
           JSON.stringify({
             status: 200,
             action: "walk",
-            moved: moves[data.id],
+            msg: {
+              moved: moves[id],
+            },
             ok: true,
             path: "walk",
             chatList: this.chatList,
-            id: this.data.id,
+            id,
             hour: this.hour,
-            channel: this.data.channel,
+            channel,
           })
         );
       }
