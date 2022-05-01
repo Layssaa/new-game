@@ -4,7 +4,7 @@ export class Game {
     this.context = _context;
     this.canvasWidth = this.canvas.width;
     this.canvasHeight = this.canvas.height;
-    this.tileSize = 192;
+    this.tileSize = 72;
     this.loop = function () {};
   }
 
@@ -43,22 +43,39 @@ export class Game {
 
   createMaze() {
     this.matrix = [
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1],
-      [1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
-      [1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1],
-      [1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1],
-      [1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1],
-      [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
-      [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1],
-      [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1],
-      [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 2],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 3, 1, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1],
+      [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+      [1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1],
+      [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
+      [1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
+      [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+      [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1],
+      [1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
+      [1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1],
+      [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
+      [1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+      [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+      [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+      [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+      [1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
+      [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1],
+      [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1],
+      [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+      [1, 3, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
     ];
 
     this.walls = [];
     this.exits = [];
+    this.starts = [];
 
     this.mazeWidth = this.matrix[0].length * this.tileSize;
     this.mazeHeight = this.matrix.length * this.tileSize;
@@ -72,7 +89,7 @@ export class Game {
             x: this.tileSize * column,
             y: this.tileSize * row,
             width: this.tileSize,
-            height: this.tileSize,
+            height: this.tileSize
           };
 
           this.walls.push(wall);
@@ -83,10 +100,21 @@ export class Game {
             x: this.tileSize * column,
             y: this.tileSize * row,
             width: this.tileSize,
-            height: this.tileSize,
+            height: this.tileSize
           };
 
           this.exits.push(exit);
+        }
+
+        if (tile === 3) {
+          let start = {
+            x: this.tileSize * column,
+            y: this.tileSize * row,
+            width: this.tileSize,
+            height: this.tileSize
+          };
+
+          this.starts.push(start);
         }
       }
     }
@@ -117,15 +145,15 @@ export class Game {
 
   createPlayer() {
     this.player = {
-      x: this.starts[this.startRandom].x - this.tileSize/2,
-      y: this.starts[this.startRandom].y - this.tileSize/2,
+      x: this.starts[this.startRandom].x + (this.tileSize / 2 - this.tileSize / 4),
+      y: this.starts[this.startRandom].y + (this.tileSize / 2 - this.tileSize / 4),
       width: this.tileSize / 2,
       height: this.tileSize / 2,
       speed: 8,
     };
   }
 
-  update(_left, _up, _right, _down) {
+  update(_left, _up, _right, _down, _downListener, _upListener) {
     if (_left && !_right) {
       this.player.x -= this.player.speed;
     } else if (_right && !_left) {
@@ -136,6 +164,16 @@ export class Game {
       this.player.y += this.player.speed;
     }
 
+    for (let i in this.walls) {
+      let wall = this.walls[i];
+      this.wallCollision(this.player, wall);
+    }
+
+    for(let i in this.exits){
+      let exit = this.exits[i];
+      this.endCollision(this.player, exit);
+    }
+
     if (this.player.x < this.camera.innerLeftBoundary()) {
       this.camera.x = this.player.x - this.camera.width * 0.25;
     }
@@ -143,48 +181,63 @@ export class Game {
       this.camera.y = this.player.y - this.camera.height * 0.25;
     }
     if (this.player.x + this.player.width > this.camera.innerRightBoundary()) {
-      this.camera.x = this.player.x + this.player.width - this.camera.width * 0.75;
+      this.camera.x =
+        this.player.x + this.player.width - this.camera.width * 0.75;
     }
-    if (this.player.y + this.player.height > this.camera.innerBottomBoundary()) {
-      this.camera.y = this.player.y + this.player.height - this.camera.height * 0.75;
+    if (
+      this.player.y + this.player.height >
+      this.camera.innerBottomBoundary()
+    ) {
+      this.camera.y =
+        this.player.y + this.player.height - this.camera.height * 0.75;
     }
-    this.camera.x = Math.max(0, Math.min(this.mazeWidth - this.camera.width + 150, this.camera.x));
-    this.camera.y = Math.max(0, Math.min(this.mazeHeight - this.camera.height + 150, this.camera.y));
+    this.camera.x = Math.max(
+      0,
+      Math.min(this.mazeWidth - this.camera.width + 150, this.camera.x)
+    );
+    this.camera.y = Math.max(
+      0,
+      Math.min(this.mazeHeight - this.camera.height + 150, this.camera.y)
+    );
+  }
+
+  wallCollision(objA, objB) {
+    let distX = objA.x + objA.width / 2 - (objB.x + objB.width / 2);
+    let distY = objA.y + objA.height / 2 - (objB.y + objB.height / 2);
+
+    let sumWidth = (objA.width + objB.width) / 2;
+    let sumHeight = (objA.height + objB.height) / 2;
+
+    if (Math.abs(distX) < sumWidth && Math.abs(distY) < sumHeight) {
+      let overlapX = sumWidth - Math.abs(distX);
+      let overlapY = sumHeight - Math.abs(distY);
+
+      if (overlapX > overlapY) {
+        objA.y = distY > 0 ? objA.y + overlapY : objA.y - overlapY;
+      } else {
+        objA.x = distX > 0 ? objA.x + overlapX : objA.x - overlapX;
+      }
+    }
+  }
+
+  endCollision(objA, objB) {
+    let distX = objA.x + objA.width / 2 - (objB.x + objB.width / 2);
+    let distY = objA.y + objA.height / 2 - (objB.y + objB.height / 2);
+
+    let sumWidth = (objA.width + objB.width) / 2;
+    let sumHeight = (objA.height + objB.height) / 2;
+
+    if (Math.abs(distX) < sumWidth && Math.abs(distY) < sumHeight) {
+      let overlapX = sumWidth - Math.abs(distX);
+      let overlapY = sumHeight - Math.abs(distY);
+
+      if (overlapX > overlapY || !(overlapX > overlapY)) {
+        // Bloqueiar o listener, pop up de vitória, requisição
+      }
+    }
   }
 
   selectStart() {
-    this.starts = [
-      {
-        x: this.tileSize * 2,
-        y: this.tileSize * 2,
-      },
-
-      {
-        x: this.tileSize * 2,
-        y: this.tileSize * 11,
-      },
-
-      {
-        x: this.tileSize * 6,
-        y: this.tileSize * 2,
-      },
-
-      {
-        x: this.tileSize * 6,
-        y: this.tileSize * 7,
-      },
-
-      {
-        x: this.tileSize * 11,
-        y: this.tileSize * 6,
-      },
-
-      {
-        x: this.tileSize * 2,
-        y: this.tileSize * 2,
-      },
-    ];
-
     this.startRandom = Math.floor(Math.random() * this.starts.length);
   }
 }
