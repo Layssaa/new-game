@@ -1,5 +1,5 @@
 const { Connection } = require("./connection");
-const { channels, moves } = require("../__mock__/data-mock");
+const { channels, moves, winner } = require("../__mock__/data-mock");
 
 class Walk extends Connection {
   constructor(_data, _ws, _wss, _WebSocket) {
@@ -14,9 +14,13 @@ class Walk extends Connection {
   sendMovesPlayer() {
     const { id, move, channel } = this.data;
 
-    // if (this.winnner.id) {
-    //   return super.refuseConnection({ action, path, description: "end game" });
-    // }
+    if (winner.id) {
+      return super.refuseConnection({
+        action: "end",
+        path: "end",
+        description: "end game",
+      });
+    }
 
     moves[id] = move;
 

@@ -42,6 +42,7 @@ class Logout extends Disconnection {
   notifyUser() {
     this.ws.send(
       JSON.stringify({
+        status: 200,
         msg: {
           text: "Logout OK",
         },
