@@ -7,9 +7,14 @@ let channels = {
 
 let actualPlayer;
 
+let moves = {
+  user_mock: [],
+};
+
 module.exports = {
   playersWS,
   listUsers,
   channels,
-  actualPlayer,
+  actualPlayer, 
+  moves,
 };

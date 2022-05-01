@@ -7,7 +7,7 @@ function login(data, ws, wss, WebSocket) {
 
 function walk(data, ws, wss, WebSocket) {
   const playerWalk = new Walk(data, ws, wss, WebSocket);
-  playerWalk.sendMovePlayer();
+  playerWalk.sendMovesPlayer();
 }
 
 function logout(data, ws, wss, WebSocket) {
