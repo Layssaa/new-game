@@ -28,7 +28,7 @@ function endGame(data, ws, wss, WebSocket) {
 
   setTimeout(() => {
     resetGame(list);
-  }, 3000);
+  }, 30000);
 
   game.notifyEndGame();
 }
