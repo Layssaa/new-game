@@ -106,10 +106,6 @@ class Connection {
   }
 
   refuseConnection({ action, path, description }) {
-    console.log("========================");
-    console.log("refused");
-    console.log("========================");
-
     return this.ws.send(
       JSON.stringify({
         status: 401,
