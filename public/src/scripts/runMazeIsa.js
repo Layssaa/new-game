@@ -183,42 +183,42 @@ function gamefunc() {
   }
 
   //entradas das setas do teclado
-  window.addEventListener("keydown", keydownHandler, false);
-  window.addEventListener("keyup", keyupHandler, false);
+  // window.addEventListener("keydown", keydownHandler, false);
+  // window.addEventListener("keyup", keyupHandler, false);
 
-  function keydownHandler(e) {
-    let key = e.keyCode;
-    switch (key) {
-      case LEFT:
-        mvLeft = true;
-        break;
-      case UP:
-        mvUp = true;
-        break;
-      case RIGHT:
-        mvRight = true;
-      case DOWN:
-        mvDown = true;
-        break;
-    }
-  }
+  // function keydownHandler(e) {
+  //   let key = e.keyCode;
+  //   switch (key) {
+  //     case LEFT:
+  //       mvLeft = true;
+  //       break;
+  //     case UP:
+  //       mvUp = true;
+  //       break;
+  //     case RIGHT:
+  //       mvRight = true;
+  //     case DOWN:
+  //       mvDown = true;
+  //       break;
+  //   }
+  // }
 
-  function keyupHandler(e) {
-    let key = e.keyCode;
-    switch (key) {
-      case LEFT:
-        mvLeft = false;
-        break;
-      case UP:
-        mvUp = false;
-        break;
-      case RIGHT:
-        mvRight = false;
-      case DOWN:
-        mvDown = false;
-        break;
-    }
-  }
+  // function keyupHandler(e) {
+  //   let key = e.keyCode;
+  //   switch (key) {
+  //     case LEFT:
+  //       mvLeft = false;
+  //       break;
+  //     case UP:
+  //       mvUp = false;
+  //       break;
+  //     case RIGHT:
+  //       mvRight = false;
+  //     case DOWN:
+  //       mvDown = false;
+  //       break;
+  //   }
+  // }
 
   function update() {
     //movimento do player
@@ -294,28 +294,74 @@ function gamefunc() {
 const canvas = document.querySelector("canvas");
 const context = canvas.getContext("2d");
 
-export const keys = {
+const keys = {
   left: 37,
   up: 38,
   right: 39,
   down: 40
 };
 
-export const move = {
-  moveLeft: false,
-  moveUp: false,
-  moveRight: false,
-  moveDown: false,
+const move = {
+  left: false,
+  up: false,
+  right: false,
+  down: false,
 };
+
+window.addEventListener("keydown", keyDownHandler, false);
+window.addEventListener("keyup", keyUpHandler, false);
+
+function keyDownHandler(_e) {
+  let key = _e.keyCode;
+
+  switch (key) {
+    case keys.left:
+      move.left = true;
+      break;
+
+    case keys.up:
+      move.up = true;
+      break;
+
+    case keys.right:
+      move.right = true;
+      break;
+
+    case keys.down:
+      move.down = true;
+      break;
+  }
+}
+
+function keyUpHandler(_e) {
+  let key = _e.keyCode;
+
+  switch (key) {
+    case keys.left:
+      move.left = false;
+      break;
+
+    case keys.up:
+      move.up = false;
+      break;
+
+    case keys.right:
+      move.right = false;
+      break;
+
+    case keys.down:
+      move.down = false;
+      break;
+  }
+}
 
 const game = new Game(canvas, context);
 
 game.loop = () => {
-  game.update();
+  game.update(move.left, move.up, move.right, move.down);
   game.renderizeCanvas();
   requestAnimationFrame(game.loop, canvas);
 }
 
 requestAnimationFrame(game.loop, canvas);
-
 game.renderizeMaze();

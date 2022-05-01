@@ -1,44 +1,10 @@
-import { move, keys } from "../runMazeIsa";
-
 export class Game {
-  canvas;
-  context;
-  canvasWidth;
-  canvasHeight;
-  matrix;
-  mazeWidth;
-  mazeHeight;
-  tileSize;
-  walls;
-  exits;
-  starts;
-  startRandom;
-  camera;
-  player;
-  left;
-  up;
-  right;
-  down;
-  moveLeft;
-  moveUp;
-  moveRight;
-  moveDown;
-  loop;
-
   constructor(_canvas, _context) {
     this.canvas = _canvas;
     this.context = _context;
     this.canvasWidth = this.canvas.width;
     this.canvasHeight = this.canvas.height;
     this.tileSize = 192;
-    this.left = 37;
-    this.up = 38;
-    this.right = 39;
-    this.down = 40;
-    this.moveDown = false;
-    this.moveLeft = false;
-    this.moveRight = false;
-    this.moveUp = false;
     this.loop = function () {};
   }
 
@@ -46,7 +12,6 @@ export class Game {
     this.createMaze();
     this.createCamera();
     this.createPlayer();
-    this.createPlayerControler();
   }
 
   renderizeCanvas() {
@@ -152,80 +117,22 @@ export class Game {
 
   createPlayer() {
     this.player = {
-      x: this.starts[this.startRandom].x - (this.tileSize / 2 + 56 / 2),
-      y: this.starts[this.startRandom].y - (this.tileSize / 2 + 56 / 2),
+      x: this.starts[this.startRandom].x - this.tileSize/2,
+      y: this.starts[this.startRandom].y - this.tileSize/2,
       width: this.tileSize / 2,
       height: this.tileSize / 2,
       speed: 8,
     };
   }
 
-  createPlayerControler() {
-    window.addEventListener("keydown", this.keyDownHandler, false);
-    window.addEventListener("keyup", this.keyUpHandler, false);
-  }
-
-  keyDownHandler(_e) {
-    let key = _e.keyCode;
-
-    switch (key) {
-      case 37:
-        this.moveLeft = true;
-        break;
-
-      case 38:
-        console.log("cima down")
-        this.moveUp = true;
-        break;
-
-      case 39:
-        console.log("direita down")
-        this.moveRight = true;
-        break;
-
-      case 40:
-        console.log("baixo down")
-        this.moveDown = true;
-        break;
-    }
-  }
-
-  keyUpHandler(_e) {
-    let key = _e.keyCode;
-    console.log(key.left, key.right, key.up, key.down);
-
-    switch (key) {
-      case this.left:
-        console.log("esquerda up")
-        this.moveLeft = false;
-        break;
-
-      case this.up:
-        console.log("cima up")
-        this.moveUp = false;
-        break;
-
-      case this.right:
-        console.log("direita up")
-        this.moveRight = false;
-        break;
-
-      case 40:
-        console.log("baixo up")
-        this.moveDown = false;
-        break;
-    }
-  }
-
-  update() {
-    console.log(this.moveDown)
-    if (this.moveLeft && !this.moveRight) {
+  update(_left, _up, _right, _down) {
+    if (_left && !_right) {
       this.player.x -= this.player.speed;
-    } else if (this.moveRight && !this.moveLeft) {
+    } else if (_right && !_left) {
       this.player.x += this.player.speed;
-    } else if (this.moveUp && !this.moveDown) {
+    } else if (_up && !_down) {
       this.player.y -= this.player.speed;
-    } else if (this.moveDown && !this.moveUp) {
+    } else if (_down && !_up) {
       this.player.y += this.player.speed;
     }
 
