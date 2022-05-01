@@ -137,8 +137,6 @@ class Connection {
       }
       return;
     });
-
-    console.log(this.chatList);
   }
 
   setWinner({ id, name }) {
