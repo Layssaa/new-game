@@ -2,14 +2,12 @@ import { enterForm, maze } from "./html-content";
 import Player from "./classes/Player";
 import feedbacks from "./messages/feedbacks";
 import { playersWS } from "../../../backend/__mock__/data-mock";
+import { makeGame } from "./runMazeIsa";
 
 const onLoadIndexHtml = () => {
-  const rootDiv = document.querySelector("#root");
   let newPlayer = undefined;
 
   try {
-    rootDiv.innerHTML = enterForm;
-
     const setMessage = (text) => {
       const feedbackMessage = document.querySelector("#feedback-message");
       feedbackMessage.innerHTML = text;
@@ -30,7 +28,8 @@ const onLoadIndexHtml = () => {
           created_at: new Date(),
         });
         newPlayer = new Player(document.querySelector("#nickname").value);
-        rootDiv.innerHTML = maze;
+        document.querySelector("#root").innerHTML = maze;
+        makeGame();
         document.querySelector("#exit-button").addEventListener("click", exit);
       }
     };
@@ -41,16 +40,15 @@ const onLoadIndexHtml = () => {
       });
       playersWS = newPlayersWS;
       newPlayer.exit();
-      newPlayer = undefined
-      rootDiv.innerHTML = enterForm;
+      newPlayer = undefined;
+      document.querySelector("#root").innerHTML = enterForm;
       document.querySelector("#enter-button").addEventListener("click", enter);
     };
+    document.querySelector("#root").innerHTML = enterForm;
     document.querySelector("#enter-button").addEventListener("click", enter);
   } catch (error) {
-    rootDiv.innerHTML = "Página em manuntenção";
+    document.querySelector("#root").innerHTML = "Página em manuntenção";
   }
 };
-
-onLoadIndexHtml();
 
 export default onLoadIndexHtml;
