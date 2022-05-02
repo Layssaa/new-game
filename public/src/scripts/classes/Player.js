@@ -5,7 +5,7 @@ class Player {
     this.disabled = false;
     this.errors = [];
     this.channel = "general";
-    this.data = undefined;
+    this.data = data;
   }
 
   controls(enable) {
@@ -31,12 +31,15 @@ class Player {
   }
 
   sendWalk(param) {
-    this.socket.send({
-      ...param,
-      path: "walk",
-      id: this.data.id,
-      channel: this.data.channel,
-    });
+    return this.socket.send(
+      JSON.stringify({
+        move: param,
+        name: this.nickname,
+        path: "walk",
+        id: this.data.id,
+        channel: this.channel,
+      })
+    );
   }
 
   sendLogIn() {
@@ -50,16 +53,17 @@ class Player {
   }
 
   sendLogOut(param) {
-    this.socket.send({
+    return this.socket.send(JSON.stringify({
       ...param,
+      name: this.nickname,
       path: "logout",
       id: this.data.id,
-      channel: this.data.channel,
-    });
+      channel: this.channel,
+    }));
   }
 
   exit() {
-    this.socket.close();
+    return this.socket.close();
   }
 }
 

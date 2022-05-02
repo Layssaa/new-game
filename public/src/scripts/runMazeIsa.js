@@ -1,6 +1,5 @@
 import { Game } from "./classes/MazeRenderizer.js";
-
-let game = undefined;
+import Player from "./classes/Player.js";
 
 export const makeGame = () => {
   const canvas = document.querySelector("canvas");
@@ -35,7 +34,7 @@ window.addEventListener("keydown", keyDownHandler, false);
 window.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(_e) {
-  let key = _e.keyCode;
+  const key = _e.keyCode;
 
   switch (key) {
     case keys.left:
@@ -61,7 +60,7 @@ function keyDownHandler(_e) {
 }
 
 function keyUpHandler(_e) {
-  let key = _e.keyCode;
+  const key = _e.keyCode;
 
   switch (key) {
     case keys.left:
@@ -85,3 +84,25 @@ function keyUpHandler(_e) {
       break;
   }
 }
+const id = localStorage.getItem("id") || "idmock";
+const game = new Game(canvas, context);
+const ws = new Player("nickname", { id });
+
+// TESTE DE LOGIN ---- TEMPORARIO
+setTimeout(()=> {
+  ws.sendLogIn({ entry: "teste" });
+}, 5000)
+
+
+game.loop = () => {
+  game.update(move.left, move.up, move.right, move.down);
+  game.renderizeCanvas();
+  requestAnimationFrame(game.loop, canvas);
+};
+
+requestAnimationFrame(game.loop, canvas);
+game.renderizeMaze();
+
+game.setRequestTimeOut(function (params) {
+  return ws.sendWalk(params);
+});

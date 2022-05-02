@@ -1,8 +1,8 @@
 export class Game {
   constructor(_canvas, _context, _keyUpHandler, _keyDownHandler) {
     this.winner = undefined;
-    this.keyUpHandler = _keyUpHandler
-    this.keyDownHandler = _keyDownHandler
+    this.keyUpHandler = _keyUpHandler;
+    this.keyDownHandler = _keyDownHandler;
     this.canvas = _canvas;
     this.context = _context;
     this.canvasWidth = this.canvas.width;
@@ -13,9 +13,16 @@ export class Game {
     this.loop = function () {};
     this.background = new Image();
     this.sapinho = new Image();
-    this.fundo = new Audio('https://img.pikbest.com/houzi/audio/original/2020/09/28/e9d3a31f126f972f5217e905ac95c919.mp3');
-    this.alfrog = new Audio('https://audio-previews.elements.envatousercontent.com/files/294506401/preview.mp3?response-content-disposition=attachment%3B+filename%3D%225EK8XSM-vibrant-game-frog-item.mp3%22')
-  }          
+    this.fundo = new Audio(
+      "https://img.pikbest.com/houzi/audio/original/2020/09/28/e9d3a31f126f972f5217e905ac95c919.mp3"
+    );
+    this.alfrog = new Audio(
+      "https://audio-previews.elements.envatousercontent.com/files/294506401/preview.mp3?response-content-disposition=attachment%3B+filename%3D%225EK8XSM-vibrant-game-frog-item.mp3%22"
+    );
+    this.moves = [];
+    this.sendMoves = function () {};
+    this.timeOut = function () {};
+  }
 
   renderizeMaze() {
     this.createMaze();
@@ -29,8 +36,10 @@ export class Game {
 
     this.context.translate(-this.camera.x, -this.camera.y);
 
-    this.background.src = 'https://user-images.githubusercontent.com/78851164/166344197-c76f686c-6fa9-4e59-a129-ed67d2dda4b3.png';
-    this.sapinho.src = 'https://user-images.githubusercontent.com/78851164/166346058-ff6fe5a5-3543-459d-8c4c-356b636df9c8.png'
+    this.background.src =
+      "https://user-images.githubusercontent.com/78851164/166344197-c76f686c-6fa9-4e59-a129-ed67d2dda4b3.png";
+    this.sapinho.src =
+      "https://user-images.githubusercontent.com/78851164/166346058-ff6fe5a5-3543-459d-8c4c-356b636df9c8.png";
 
     for (let row in this.matrix) {
       for (let column in this.matrix[row]) {
@@ -40,60 +49,161 @@ export class Game {
           let y = row * this.tileSize;
           this.context.drawImage(
             this.background,
-            0, 0, this.tileSrcSize, this.tileSrcSize,
-            x, y, this.tileSize, this.tileSize
+            0,
+            0,
+            this.tileSrcSize,
+            this.tileSrcSize,
+            x,
+            y,
+            this.tileSize,
+            this.tileSize
           );
         } else {
           let x = column * this.tileSize;
           let y = row * this.tileSize;
           this.context.drawImage(
             this.background,
-            tile * this.tileSrcSize, 0, this.tileSrcSize, this.tileSrcSize,
-            x, y, this.tileSize, this.tileSize
+            tile * this.tileSrcSize,
+            0,
+            this.tileSrcSize,
+            this.tileSrcSize,
+            x,
+            y,
+            this.tileSize,
+            this.tileSize
           );
         }
-          
       }
     }
 
     this.context.drawImage(
       this.sapinho,
-      this.player.srcX, this.player.srcY, this.player.width, this.player.height,
-      this.player.x, this.player.y, this.player.width, this.player.height
+      this.player.srcX,
+      this.player.srcY,
+      this.player.width,
+      this.player.height,
+      this.player.x,
+      this.player.y,
+      this.player.width,
+      this.player.height
     );
     this.context.restore();
   }
 
   createMaze() {
     this.matrix = [
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 3, 1, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1],
-      [1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-      [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-      [1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1],
-      [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
-      [1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
-      [1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-      [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1],
-      [1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1],
-      [1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1],
-      [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1],
-      [1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
-      [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-      [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
-      [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-      [1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
-      [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1],
-      [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1],
-      [1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
-      [1, 3, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+      [
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+      ],
+      [
+        1, 3, 1, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 1, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1,
+      ],
+      [
+        1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1,
+      ],
+      [
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
+        0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1,
+      ],
+      [
+        1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1,
+        1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0,
+        0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1,
+        1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0,
+        1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1,
+      ],
+      [
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1,
+        1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1,
+      ],
+      [
+        1, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1,
+      ],
+      [
+        1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      ],
+      [
+        1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1,
+        1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0,
+        1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0,
+        1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1,
+      ],
+      [
+        1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0,
+        1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+      ],
+      [
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0,
+        1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1,
+      ],
+      [
+        1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0,
+        1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0,
+        1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1,
+      ],
+      [
+        1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0,
+        1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1,
+      ],
+      [
+        1, 3, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2,
+      ],
+      [
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+      ],
     ];
 
     this.walls = [];
@@ -112,7 +222,7 @@ export class Game {
             x: this.tileSize * column,
             y: this.tileSize * row,
             width: this.tileSize,
-            height: this.tileSize
+            height: this.tileSize,
           };
 
           this.walls.push(wall);
@@ -123,7 +233,7 @@ export class Game {
             x: this.tileSize * column,
             y: this.tileSize * row,
             width: this.tileSize,
-            height: this.tileSize
+            height: this.tileSize,
           };
 
           this.exits.push(exit);
@@ -134,7 +244,7 @@ export class Game {
             x: this.tileSize * column,
             y: this.tileSize * row,
             width: this.tileSize,
-            height: this.tileSize
+            height: this.tileSize,
           };
 
           this.starts.push(start);
@@ -168,8 +278,12 @@ export class Game {
 
   createPlayer() {
     this.player = {
-      x: this.starts[this.startRandom].x + (this.tileSize / 2 - this.tileSize / 4),
-      y: this.starts[this.startRandom].y + (this.tileSize / 2 - this.tileSize / 4),
+      x:
+        this.starts[this.startRandom].x +
+        (this.tileSize / 2 - this.tileSize / 4),
+      y:
+        this.starts[this.startRandom].y +
+        (this.tileSize / 2 - this.tileSize / 4),
       width: 32,
       height: 32,
       speed: 10,
@@ -178,24 +292,27 @@ export class Game {
     };
   }
 
-  update(_left, _up, _right, _down,  _space, _downListener, _upListener) {
+  update(_left, _up, _right, _down, _space, _downListener, _upListener) {
     if (_left && !_right) {
       this.player.x -= this.player.speed;
       this.player.srcY = 32;
     } else if (_right && !_left) {
       this.player.x += this.player.speed;
       this.player.srcY = 0;
+      this.doRequest();
     } else if (_up && !_down) {
       this.player.y -= this.player.speed;
+      this.doRequest();
     } else if (_down && !_up) {
       this.player.y += this.player.speed;
-    } else if(_space){
+    } else if (_space) {
       this.player.y -= 7;
       setTimeout(() => {
-        this.player.y +=7;
+        this.player.y += 7;
         this.alfrog.play();
-        _space = _down = _left = _right = _up = false
-      }, 200)
+        _space = _down = _left = _right = _up = false;
+      }, 200);
+      this.doRequest();
     }
 
     for (let i in this.walls) {
@@ -203,7 +320,7 @@ export class Game {
       this.wallCollision(this.player, wall);
     }
 
-    for(let i in this.exits){
+    for (let i in this.exits) {
       let exit = this.exits[i];
       this.endCollision(this.player, exit);
     }
@@ -238,6 +355,18 @@ export class Game {
     this.fundo.loop = true;
   }
 
+  doRequest() {
+    clearTimeout(this.timeOut);
+
+    this.moves.push([this.player.x, this.player.y]);
+
+    this.timeOut = setTimeout(this.sendMoves(this.moves), 200);
+  }
+
+  setRequestTimeOut(request) {
+    this.sendMoves = request;
+  }
+
   wallCollision(objA, objB) {
     let distX = objA.x + objA.width / 2 - (objB.x + objB.width / 2);
     let distY = objA.y + objA.height / 2 - (objB.y + objB.height / 2);
@@ -264,17 +393,17 @@ export class Game {
     alert("aeeeeeeeee");
   }
 
-  setWinner(winnerPlayer){
-    this.winner = winnerPlayer
+  setWinner(winnerPlayer) {
+    this.winner = winnerPlayer;
   }
 
-  setEndGame(fun){
+  setEndGame(fun) {
     this.endGame = fun;
   }
 
   endCollision(objA, objB) {
-    if(this.winner){
-      return 
+    if (this.winner) {
+      return;
     }
 
     let distX = objA.x + objA.width / 2 - (objB.x + objB.width / 2);
