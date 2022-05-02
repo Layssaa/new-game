@@ -84,15 +84,15 @@ function keyUpHandler(_e) {
       break;
   }
 }
-const id = localStorage.getItem("id") || "idmock";
+const id = localStorage.getItem("id");
 const game = new Game(canvas, context);
-const ws = new Player("nickname", { id });
+const mockName = "nickname";
+const ws = new Player(mockName);
 
 // TESTE DE LOGIN ---- TEMPORARIO
-setTimeout(()=> {
-  ws.sendLogIn({ entry: "teste" });
-}, 5000)
-
+setTimeout(() => {
+  ws.sendLogIn();
+}, 5000);
 
 game.loop = () => {
   game.update(move.left, move.up, move.right, move.down);
@@ -103,14 +103,27 @@ game.loop = () => {
 requestAnimationFrame(game.loop, canvas);
 game.renderizeMaze();
 
-game.setRequestTimeOut(function (params) {
-  return ws.sendWalk(params);
+game.setRequestTimeOut(function (move) {
+  return ws.sendWalk({ move, id });
 });
 
+function readPaths(response) {
+  const res = JSON.parse(response.data);
+  console.log("run ws read paths");
+  console.log(res);
 
-function readPaths(res){
-  if(path === "walk"){
-    
+  if (res.path === "login") {
+    console.log("set id from login");
+    const receivedId = res.id;
+    localStorage.setItem("id", receivedId);
+    game.infoPlayer({ id: receivedId, name: mockName });
   }
 
+  if (res.path === "walk" && res.id !== id) {
+    console.log("set moves");
+    game.setMovesPlayers(res);
+  }
 }
+
+ws.receidDataMethod(readPaths);
+ws.init();
