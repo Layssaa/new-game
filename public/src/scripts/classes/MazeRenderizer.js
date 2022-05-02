@@ -20,8 +20,14 @@ export class Game {
       "https://audio-previews.elements.envatousercontent.com/files/294506401/preview.mp3?response-content-disposition=attachment%3B+filename%3D%225EK8XSM-vibrant-game-frog-item.mp3%22"
     );
     this.moves = [];
+    this.movesPlayers = {};
     this.sendMoves = function () {};
     this.timeOut = function () {};
+  }
+
+  setMovesPlayers({ dataPLayer }) {
+    this.movesPlayers.push(dataPLayer);
+    // https://www.w3bai.com/pt/canvas/canvas_text.html
   }
 
   renderizeMaze() {

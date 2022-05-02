@@ -106,3 +106,11 @@ game.renderizeMaze();
 game.setRequestTimeOut(function (params) {
   return ws.sendWalk(params);
 });
+
+
+function readPaths(res){
+  if(path === "walk"){
+    
+  }
+
+}
