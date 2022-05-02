@@ -77,4 +77,6 @@ const runMazeIza = () => {
   game.renderizeMaze();
 };
 
+runMazeIza();
+
 export default runMazeIza;
