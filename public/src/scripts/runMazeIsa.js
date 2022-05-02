@@ -116,7 +116,7 @@ function readPaths(response) {
     console.log("set id from login");
     const receivedId = res.id;
     localStorage.setItem("id", receivedId);
-    game.infoPlayer({ id: receivedId, name: mockName });
+    game.setInfoPlayer({ id: receivedId, name: mockName });
   }
 
   if (res.path === "walk" && res.id !== id) {

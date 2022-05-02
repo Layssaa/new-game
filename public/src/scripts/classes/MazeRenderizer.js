@@ -130,6 +130,10 @@ export class Game {
       this.player.width,
       this.player.height
     );
+
+    this.context.font = "20px Arial";
+    this.context.fillText(this.infoPlayer.name, this.player.x - 20, this.player.y - 10);
+
     this.context.restore();
   }
 
