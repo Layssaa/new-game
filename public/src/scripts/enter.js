@@ -5,9 +5,10 @@ import { playersWS } from "../../../backend/__mock__/data-mock";
 import { makeGame } from "./runMazeIsa";
 
 export let newPlayer = undefined;
+export const rootDiv = document.querySelector("#root");
 
 export const onLoadIndexHtml = () => {
-  document.querySelector("#root").innerHTML = enterForm;
+  rootDiv.innerHTML = enterForm;
   document.querySelector("#enter-button").addEventListener("click", enter);
 };
 
@@ -31,7 +32,7 @@ export const enter = () => {
       created_at: new Date(),
     });
     newPlayer = new Player(document.querySelector("#nickname").value);
-    document.querySelector("#root").innerHTML = maze;
+    rootDiv.innerHTML = maze;
     makeGame();
     document.querySelector("#exit-button").addEventListener("click", exit);
   }
@@ -44,6 +45,6 @@ export const exit = () => {
   playersWS = newPlayersWS;
   newPlayer.exit();
   newPlayer = undefined;
-  document.querySelector("#root").innerHTML = enterForm;
+  rootDiv.innerHTML = enterForm;
   document.querySelector("#enter-button").addEventListener("click", enter);
 };
