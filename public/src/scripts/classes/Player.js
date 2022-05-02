@@ -5,7 +5,8 @@ class Player {
     this.disabled = false;
     this.errors = [];
     this.channel = "general";
-    this.data = data;
+    this.data = {};
+    this.onMessage = function () {};
   }
 
   controls(enable) {
@@ -16,6 +17,10 @@ class Player {
     }
   }
 
+  receidDataMethod(fun) {
+    this.onMessage = fun;
+  }
+
   init() {
     this.socket.onopen = () => {
       this.controls(false);
@@ -23,20 +28,24 @@ class Player {
     };
 
     this.socket.onerror = (err) => {
+      console.log("error");
+      console.log(err);
       this.errors.push({
         created_at: new Date(),
         error: err,
       });
     };
+
+    this.socket.onmessage = this.onMessage;
   }
 
   sendWalk(param) {
     return this.socket.send(
       JSON.stringify({
-        move: param,
+        move: param.move,
         name: this.nickname,
         path: "walk",
-        id: this.data.id,
+        id: param.id,
         channel: this.channel,
       })
     );
@@ -53,13 +62,15 @@ class Player {
   }
 
   sendLogOut(param) {
-    return this.socket.send(JSON.stringify({
-      ...param,
-      name: this.nickname,
-      path: "logout",
-      id: this.data.id,
-      channel: this.channel,
-    }));
+    return this.socket.send(
+      JSON.stringify({
+        ...param,
+        name: this.nickname,
+        path: "logout",
+        id: param.id,
+        channel: this.channel,
+      })
+    );
   }
 
   exit() {
