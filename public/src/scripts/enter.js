@@ -1,4 +1,4 @@
-import { enterForm, mockGame } from "./html-content";
+import { enterForm, maze } from "./html-content";
 import Player from "./classes/Player";
 import feedbacks from "./messages/feedbacks";
 import { playersWS } from "../../../backend/__mock__/data-mock";
@@ -30,7 +30,7 @@ const onLoadIndexHtml = () => {
           created_at: new Date(),
         });
         newPlayer = new Player(document.querySelector("#nickname").value);
-        rootDiv.innerHTML = mockGame;
+        rootDiv.innerHTML = maze;
         document.querySelector("#exit-button").addEventListener("click", exit);
       }
     };
