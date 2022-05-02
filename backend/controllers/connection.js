@@ -20,6 +20,9 @@ class Connection {
   }
 
   duplicateName() {
+    console.log("_______________chatList_______________");
+    console.log(this.chatList);
+
     if (this.chatList.find((obj) => obj.name === this.data.name)) {
       this.ws.send(
         JSON.stringify({
@@ -130,6 +133,7 @@ class Connection {
   getChatList() {
     this.chatList = channels[this.data.channel].map(function (e) {
       if (listUsers[e.id]) {
+        console.log(listUsers)
         return {
           name: listUsers[e.id],
           id: e.id,
