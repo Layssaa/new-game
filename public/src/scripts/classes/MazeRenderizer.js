@@ -232,7 +232,8 @@ export class Game {
       let overlapY = sumHeight - Math.abs(distY);
 
       if (overlapX > overlapY || !(overlapX > overlapY)) {
-        // Bloqueiar o listener, pop up de vitória, requisição
+        window.removeEventListener("keyup");
+        window.removeEventListener("keydown");
       }
     }
   }
