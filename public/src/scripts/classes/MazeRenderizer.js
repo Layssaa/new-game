@@ -52,18 +52,13 @@ export class Game {
       return player.msg.move.forEach((move) => {
         const X = move[0];
         const Y = move[1];
-        this.context.fillText(name, X, Y + 2);
 
+        this.context.fillText(name, X - 20, Y - 10);
+        this.context.fillRect(X, Y, this.player.width, this.player.height);
         this.context.fillRect(X, Y, this.player.width, this.player.height);
       });
     });
 
-    // this.context.fillRect(
-    //   this.player.x,
-    //   this.player.y,
-    //   this.player.width,
-    //   this.player.height
-    // );
     this.context.restore();
   }
 
@@ -132,7 +127,11 @@ export class Game {
     );
 
     this.context.font = "20px Arial";
-    this.context.fillText(this.infoPlayer.name, this.player.x - 20, this.player.y - 10);
+    this.context.fillText(
+      this.infoPlayer.name,
+      this.player.x - 20,
+      this.player.y - 10
+    );
 
     this.context.restore();
   }
