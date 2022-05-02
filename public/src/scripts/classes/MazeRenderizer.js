@@ -20,14 +20,51 @@ export class Game {
       "https://audio-previews.elements.envatousercontent.com/files/294506401/preview.mp3?response-content-disposition=attachment%3B+filename%3D%225EK8XSM-vibrant-game-frog-item.mp3%22"
     );
     this.moves = [];
-    this.movesPlayers = {};
+    this.movesPlayers = [];
     this.sendMoves = function () {};
     this.timeOut = function () {};
+    this.infoPlayer = {};
   }
 
-  setMovesPlayers({ dataPLayer }) {
+  setInfoPlayer({ id, name }) {
+    this.infoPlayer.id = id;
+    this.infoPlayer.name = name;
+  }
+
+  setMovesPlayers(dataPLayer) {
+    console.log(this.infoPlayer);
+
+    if (dataPLayer.id === this.infoPlayer.id) {
+      console.log("is the same player");
+      return;
+    }
+    console.log("do map");
+    this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+    this.context.save();
+
     this.movesPlayers.push(dataPLayer);
-    // https://www.w3bai.com/pt/canvas/canvas_text.html
+
+    this.context.fillStyle = "#00f";
+    this.context.font = "10px Arial";
+
+    this.movesPlayers.forEach((player) => {
+      const name = player.name;
+      return player.msg.move.forEach((move) => {
+        const X = move[0];
+        const Y = move[1];
+        this.context.fillText(name, X, Y + 2);
+
+        this.context.fillRect(X, Y, this.player.width, this.player.height);
+      });
+    });
+
+    // this.context.fillRect(
+    //   this.player.x,
+    //   this.player.y,
+    //   this.player.width,
+    //   this.player.height
+    // );
+    this.context.restore();
   }
 
   renderizeMaze() {
