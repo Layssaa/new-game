@@ -10,11 +10,8 @@ const onLoadIndexHtml = () => {
   try {
     rootDiv.innerHTML = enterForm;
 
-    const nickname = document.querySelector("#nickname");
-    const enterButton = document.querySelector("#enter-button");
-    const feedbackMessage = document.querySelector("#feedback-message");
-
     const setMessage = (text) => {
+      const feedbackMessage = document.querySelector("#feedback-message");
       feedbackMessage.innerHTML = text;
       setTimeout(() => {
         feedbackMessage.innerHTML = "";
@@ -22,16 +19,17 @@ const onLoadIndexHtml = () => {
     };
 
     const enter = () => {
-      if (/\s/g.test(nickname.value)) {
+      const nickname = document.querySelector("#nickname").value;
+      if (/\s/g.test(nickname)) {
         setMessage(feedbacks.BLANK_SPACE);
-      } else if (nickname.value.length <= 0) {
+      } else if (document.querySelector("#nickname").value.length <= 0) {
         setMessage(feedbacks.SHORT_NICKNAME);
       } else {
         playersWS.push({
-          nickname: nickname,
+          nickname: document.querySelector("#nickname").value,
           created_at: new Date(),
         });
-        newPlayer = new Player(nickname.value);
+        newPlayer = new Player(document.querySelector("#nickname").value);
         rootDiv.innerHTML = mockGame;
         document.querySelector("#exit-button").addEventListener("click", exit);
       }
@@ -43,10 +41,11 @@ const onLoadIndexHtml = () => {
       });
       playersWS = newPlayersWS;
       newPlayer.exit();
+      newPlayer = undefined
       rootDiv.innerHTML = enterForm;
+      document.querySelector("#enter-button").addEventListener("click", enter);
     };
-
-    enterButton.addEventListener("click", enter);
+    document.querySelector("#enter-button").addEventListener("click", enter);
   } catch (error) {
     rootDiv.innerHTML = "Página em manuntenção";
   }
