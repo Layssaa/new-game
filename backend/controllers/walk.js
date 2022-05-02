@@ -12,7 +12,7 @@ class Walk extends Connection {
   }
 
   sendMovesPlayer() {
-    const { id, move, channel } = this.data;
+    const { id, move, channel, name } = this.data;
 
     if (winner.id) {
       return super.refuseConnection({
@@ -31,8 +31,9 @@ class Walk extends Connection {
             status: 200,
             action: "walk",
             msg: {
-              moved: moves[id],
+              move: moves[id],
             },
+            name, 
             ok: true,
             path: "walk",
             chatList: this.chatList,
