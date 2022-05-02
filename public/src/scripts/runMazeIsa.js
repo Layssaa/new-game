@@ -1,13 +1,25 @@
 import { Game } from "./classes/MazeRenderizer.js";
 
-const canvas = document.querySelector("canvas");
-const context = canvas.getContext("2d");
+let game = undefined;
+
+export const makeGame = () => {
+  const canvas = document.querySelector("canvas");
+  const context = canvas.getContext("2d");
+  game = new Game(canvas, context);
+  game.loop = () => {
+    game.update(move.left, move.up, move.right, move.down);
+    game.renderizeCanvas();
+    requestAnimationFrame(game.loop, canvas);
+  };
+  requestAnimationFrame(game.loop, canvas);
+  game.renderizeMaze();
+};
 
 const keys = {
   left: 37,
   up: 38,
   right: 39,
-  down: 40
+  down: 40,
 };
 
 const move = {
@@ -63,14 +75,3 @@ function keyUpHandler(_e) {
       break;
   }
 }
-
-const game = new Game(canvas, context);
-
-game.loop = () => {
-  game.update(move.left, move.up, move.right, move.down);
-  game.renderizeCanvas();
-  requestAnimationFrame(game.loop, canvas);
-}
-
-requestAnimationFrame(game.loop, canvas);
-game.renderizeMaze();
