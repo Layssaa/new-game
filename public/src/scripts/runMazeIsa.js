@@ -6,10 +6,12 @@ let game = undefined;
 export const makeGame = () => {
   const canvas = document.querySelector("canvas");
   const context = canvas.getContext("2d");
+
   document.querySelector(".buttonLogout").addEventListener("click", exit);
-  game = new Game(canvas, context);
+  game = new Game(canvas, context, keyUpHandler, keyDownHandler);
+
   game.loop = () => {
-    game.update(move.left, move.up, move.right, move.down);
+    game.update(move.left, move.up, move.right, move.down, move.space);
     game.renderizeCanvas();
     requestAnimationFrame(game.loop, canvas);
   };
@@ -22,6 +24,7 @@ const keys = {
   up: 38,
   right: 39,
   down: 40,
+  space: 32,
 };
 
 const move = {
@@ -29,6 +32,7 @@ const move = {
   up: false,
   right: false,
   down: false,
+  space: false,
 };
 
 window.addEventListener("keydown", keyDownHandler, false);
@@ -53,6 +57,10 @@ function keyDownHandler(_e) {
     case keys.down:
       move.down = true;
       break;
+
+    case keys.space:
+      move.space = true;
+      break;
   }
 }
 
@@ -74,6 +82,10 @@ function keyUpHandler(_e) {
 
     case keys.down:
       move.down = false;
+      break;
+
+    case keys.space:
+      move.space = false;
       break;
   }
 }
