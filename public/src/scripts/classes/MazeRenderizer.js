@@ -12,7 +12,6 @@ export class Game {
     this.createMaze();
     this.createCamera();
     this.createPlayer();
-    // this.createDoor();
   }
 
   renderizeCanvas() {
@@ -154,15 +153,6 @@ export class Game {
     };
   }
 
-  // createDoor() {
-  //   this.door = {
-  //     x: this.exits[this.doorRandom].x + (this.tileSize / 2 - this.tileSize / 4),
-  //     y: this.exits[this.doorRandom].y + (this.tileSize / 2 - this.tileSize / 4),
-  //     width: this.tileSize / 2,
-  //     height: this.tileSize / 2
-  //   };
-  // }
-
   update(_left, _up, _right, _down, _downListener, _upListener) {
     if (_left && !_right) {
       this.player.x -= this.player.speed;
@@ -250,6 +240,5 @@ export class Game {
 
   selectStart() {
     this.startRandom = Math.floor(Math.random() * this.starts.length);
-    // this.doorRandom = Math.floor(Math.random() * this.exits.length);
   }
 }

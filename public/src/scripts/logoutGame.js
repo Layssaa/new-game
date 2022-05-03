@@ -1,4 +1,4 @@
-import { Player } from "./classes/Player";
+import  Player  from "./classes/Player";
 import logout from "./html-content/logout";
 
 const logoutDiv = document.querySelector("#logout");
@@ -6,6 +6,9 @@ const logoutDiv = document.querySelector("#logout");
 logoutDiv.innerHTML = logout;
 
 const exit = () => {
+
+    newPlayer = new Player(document.querySelector("#nickname").value);
+    
     const newPlayersWS = playersWS.filter((playerWS) => {
       return playerWS.nickname !== newPlayer.nickname;
     });
