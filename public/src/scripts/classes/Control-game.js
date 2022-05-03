@@ -298,11 +298,7 @@ class ControlGame {
   }
 
   doRequest() {
-    clearTimeout(this.timeOut);
-
-    this.moves.push([this.player.x, this.player.y]);
-
-    this.timeOut = setTimeout(this.sendMoves(this.moves), 200);
+    this.sendMoves([this.player.x, this.player.y]);
   }
 
   setMoveRequest(fun) {
