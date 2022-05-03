@@ -21,6 +21,9 @@ class ControlGame {
       "https://pic.pikbest.com/00/50/03/534888piCVWT.mp3"
     );
     this.sendMoves = function () {};
+    this.infoPlayer = {};
+    this.winner;
+
   }
 
   update(_left, _up, _right, _down, _space, _downListener, _upListener) {
@@ -144,6 +147,14 @@ class ControlGame {
       this.player.width,
       this.player.height
     );
+    this.context.fillStyle = "#FFFFFF";
+    this.context.font = "20px Arial";
+    this.context.fillText(
+      this.infoPlayer.name,
+      this.player.x - 20,
+      this.player.y - 10
+    );
+
     this.context.restore();
   }
 
@@ -297,15 +308,16 @@ class ControlGame {
   }
 
   doRequest() {
-    clearTimeout(this.timeOut);
-
-    this.moves.push([this.player.x, this.player.y]);
-
-    this.timeOut = setTimeout(this.sendMoves(this.moves), 200);
+    this.sendMoves([this.player.x, this.player.y]);
   }
 
   setMoveRequest(fun) {
     this.sendMoves = fun;
+  }
+
+  setInfoPlayer({ id, name }) {
+    this.infoPlayer.id = id;
+    this.infoPlayer.name = name;
   }
 }
 

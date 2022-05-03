@@ -97,6 +97,44 @@ body {
   position: absolute;
 }
 
+#card {
+  width: 300px;
+  height: 80px;
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid #c4c4c4;
+  align-items: center;
+}
+
+#card img {
+  height: 50px;
+}
+
+#space-text {
+  text-align: left;
+  overflow-wrap: anywhere;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#space-text p, #space-text span {
+    width: fit-content;
+    height: fit-content;
+    color: #232323;
+    font-family: 'Poppins';
+    right: 10;
+    bottom: 20;
+}
+
+#space-text span {
+    font-size: 20px;
+}
+
+#space-text p {
+    font-size: 15px;
+}
+
 .popup{
   position: absolute;
   top: 20px;

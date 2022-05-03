@@ -5,7 +5,13 @@ class Player {
     this.disabled = false;
     this.errors = [];
     this.channel = "general";
-    this.data = undefined;
+    this.data = {};
+    this.onMessage = function () {};
+    this.id;
+  }
+
+  setName(_name) {
+    this.nickname = _name;
   }
 
   controls(enable) {
@@ -16,6 +22,10 @@ class Player {
     }
   }
 
+  receidDataMethod(fun) {
+    this.onMessage = fun;
+  }
+
   init() {
     this.socket.onopen = () => {
       this.controls(false);
@@ -23,24 +33,31 @@ class Player {
     };
 
     this.socket.onerror = (err) => {
+      console.log("error");
+      console.log(err);
       this.errors.push({
         created_at: new Date(),
         error: err,
       });
     };
+
+    this.socket.onmessage = this.onMessage;
   }
 
   sendWalk(param) {
-    this.socket.send({
-      ...param,
-      path: "walk",
-      id: this.data.id,
-      channel: this.data.channel,
-    });
+    return this.socket.send(
+      JSON.stringify({
+        move: param.move,
+        name: this.nickname,
+        path: "walk",
+        id: param.id,
+        channel: this.channel,
+      })
+    );
   }
 
   sendLogIn() {
-    this.socket.send(
+    return this.socket.send(
       JSON.stringify({
         name: this.nickname,
         path: "login",
@@ -50,25 +67,33 @@ class Player {
   }
 
   sendLogOut(param) {
-    this.socket.send({
-      ...param,
-      path: "logout",
-      id: this.data.id,
-      channel: this.channel,
-    });
+    return this.socket.send(
+      JSON.stringify({
+        ...param,
+        name: this.nickname,
+        path: "logout",
+        id: param.id,
+        channel: this.channel,
+      })
+    );
   }
 
-  sendWinner(param) {
-    this.socket.send({
-      ...param,
-      path: "end",
-      id: this.data.id,
-      channel: this.channel,
-    });
+  sendEndGame(id) {
+    console.log("end game");
+    console.log(this.nickname);
+    return this.socket.send(
+      JSON.stringify({
+        action: "end",
+        name: this.nickname,
+        path: "end",
+        id,
+        channel: this.channel,
+      })
+    );
   }
 
   exit() {
-    this.socket.close();
+    return this.socket.close();
   }
 }
 
