@@ -299,8 +299,7 @@ class ControlGame {
   keyBlocker() {
     window.removeEventListener("keyup", this.keyUpHandler);
     window.removeEventListener("keydown", this.keyDownHandler);
-    this.finishGame.play();
-    console.log("ganhouu");
+    this.finishGame.play(); 
     this.endGame();
   }
 
