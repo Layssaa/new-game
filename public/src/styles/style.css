@@ -1,6 +1,8 @@
 *,
 html,
 body {
+  background-image: url('../../../public/images/tijolin.gif');
+  background-repeat: repeat;
   overflow: hidden;
 }
 

@@ -1,5 +1,6 @@
 export class Game {
   constructor(_canvas, _context, _keyUpHandler, _keyDownHandler) {
+    this.winner = undefined;
     this.keyUpHandler = _keyUpHandler
     this.keyDownHandler = _keyDownHandler
     this.canvas = _canvas;
@@ -8,9 +9,10 @@ export class Game {
     this.canvasHeight = this.canvas.height;
     this.tileSize = 96;
     this.tileSrcSize = 96;
+    this.endGame = function () {};
+    this.loop = function () {};
     this.background = new Image();
     this.sapinho = new Image();
-    this.loop = function () {};
     this.fundo = new Audio('https://img.pikbest.com/houzi/audio/original/2020/09/28/e9d3a31f126f972f5217e905ac95c919.mp3');
     this.alfrog = new Audio('https://audio-previews.elements.envatousercontent.com/files/294506401/preview.mp3?response-content-disposition=attachment%3B+filename%3D%225EK8XSM-vibrant-game-frog-item.mp3%22')
   }          
@@ -255,7 +257,26 @@ export class Game {
     }
   }
 
+  keyBlocker() {
+    window.removeEventListener("keyup", this.keyUpHandler);
+    window.removeEventListener("keydown", this.keyDownHandler);
+    this.endGame();
+    alert("aeeeeeeeee");
+  }
+
+  setWinner(winnerPlayer){
+    this.winner = winnerPlayer
+  }
+
+  setEndGame(fun){
+    this.endGame = fun;
+  }
+
   endCollision(objA, objB) {
+    if(this.winner){
+      return 
+    }
+
     let distX = objA.x + objA.width / 2 - (objB.x + objB.width / 2);
     let distY = objA.y + objA.height / 2 - (objB.y + objB.height / 2);
 
@@ -267,8 +288,8 @@ export class Game {
       let overlapY = sumHeight - Math.abs(distY);
 
       if (overlapX > overlapY || !(overlapX > overlapY)) {
-        window.removeEventListener("keyup", this.keyUpHandler);
-        window.removeEventListener("keydown", this.keyDownHandler);
+        this.keyBlocker();
+        this.setWinner("idMock");
       }
     }
   }
