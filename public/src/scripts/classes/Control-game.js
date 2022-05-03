@@ -10,11 +10,11 @@ class ControlGame {
     this.tileSize = 96;
     this.tileSrcSize = 96;
     this.background = new Image();
-    this.sapinho = new Image();
+    this.frogImage = new Image();
     this.bgm = new Audio(
       "https://img.pikbest.com/houzi/audio/original/2020/09/28/e9d3a31f126f972f5217e905ac95c919.mp3"
     );
-    this.alfrog = new Audio(
+    this.frogAudio = new Audio(
       "https://audio-previews.elements.envatousercontent.com/files/294506401/preview.mp3?response-content-disposition=attachment%3B+filename%3D%225EK8XSM-vibrant-game-frog-item.mp3%22"
     );
     this.finishGame = new Audio(
@@ -42,7 +42,7 @@ class ControlGame {
       this.player.y -= 7;
       setTimeout(() => {
         this.player.y += 7;
-        this.alfrog.play();
+        this.frogAudio.play();
         _space = _down = _left = _right = _up = false;
       }, 200);
     }
@@ -95,7 +95,7 @@ class ControlGame {
 
     this.background.src =
       "https://user-images.githubusercontent.com/78851164/166344197-c76f686c-6fa9-4e59-a129-ed67d2dda4b3.png";
-    this.sapinho.src =
+    this.frogImage.src =
       "https://user-images.githubusercontent.com/78851164/166346058-ff6fe5a5-3543-459d-8c4c-356b636df9c8.png";
 
     for (let row in this.matrix) {
@@ -134,7 +134,7 @@ class ControlGame {
     }
 
     this.context.drawImage(
-      this.sapinho,
+      this.frogImage,
       this.player.srcX,
       this.player.srcY,
       this.player.width,
