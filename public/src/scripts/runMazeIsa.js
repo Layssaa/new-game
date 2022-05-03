@@ -46,6 +46,12 @@ function readPaths(response) {
     console.log("set moves");
     game.setMovesPlayers(res);
   }
+
+  if (res.path === "end" && res.id !== id) {
+    console.log("end game");
+    game.setWinner(res.name);
+    game.keyBlocker();
+  }
 }
 
 window.addEventListener("keydown", keyDownHandler, false);
