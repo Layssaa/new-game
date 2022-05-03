@@ -40,7 +40,7 @@ class Login extends Connection {
               text: `${listUsers[this.data.id]} entrou no canal.`,
             },
             hour: this.hour,
-            path: "/chat",
+            path: "login",
             chatList: this.chatList,
           })
         );
@@ -57,6 +57,7 @@ class Login extends Connection {
           text: "Login Ok",
           move: moves
         },
+        name: this.data.name,
         ok: true,
         path: "login",
         hour: this.hour,

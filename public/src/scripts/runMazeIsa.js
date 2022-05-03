@@ -3,11 +3,12 @@ import { mazeMatrix } from "./html-content/index.js";
 import { exit } from "./logoutGame.js";
 import { keyDownHandler, keyUpHandler, move } from "./keys-control";
 import { endGame, receivedData, sendWalk } from "./request-control.js";
+import { rootDiv } from "./enter.js";
 
 let game = undefined;
 const id = localStorage.getItem("id");
 
-export const makeGame = () => {
+export const makeGame = () => { 
   const canvas = document.querySelector("canvas");
   const context = canvas.getContext("2d");
 
@@ -35,11 +36,15 @@ function readPaths(response) {
   console.log("run ws read paths");
   console.log(res);
 
-  if (res.path === "login") {
-    console.log("set id from login");
+  if(res.path === "erro"){
+    console.log(res.msg.text);
+    rootDiv.append = errorFeedback;
+  }
+
+  if (res.path === "login" && res.ok) {
     const receivedId = res.id;
     localStorage.setItem("id", receivedId);
-    game.setInfoPlayer({ id: receivedId, name: mockName });
+    game.setInfoPlayer({ id: receivedId, name: res.name });
   }
 
   if (res.path === "walk" && res.id !== id) {

@@ -5,6 +5,7 @@ const ws = new Player();
 export function loginWS(_name) {
   ws.setName(_name);
   ws.init();
+  ws.sendLogIn()
 }
 
 export function logoutWS(_name) {
