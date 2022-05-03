@@ -45,7 +45,7 @@ export class Game {
     this.movesPlayers.push(dataPLayer);
 
     this.context.fillStyle = "#00f";
-    this.context.font = "10px Arial";
+    this.context.font = "20px Arial";
 
     this.movesPlayers.forEach((player) => {
       const name = player.name;
@@ -54,7 +54,6 @@ export class Game {
         const Y = move[1];
 
         this.context.fillText(name, X - 20, Y - 10);
-        this.context.fillRect(X, Y, this.player.width, this.player.height);
         this.context.fillRect(X, Y, this.player.width, this.player.height);
       });
     });
