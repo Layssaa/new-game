@@ -68,6 +68,7 @@ function readPaths(response) {
     console.log("end game");
     game.setWinner(res.name);
     game.keyBlocker();
+    ws.sendWalk = function () {};
   }
 }
 
