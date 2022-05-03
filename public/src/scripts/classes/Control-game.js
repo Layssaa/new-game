@@ -1,3 +1,4 @@
+import { winnerPopUp } from '../html-content/winnerPopUp';
 class ControlGame {
   constructor(_canvas, _context, _keyUpHandler, _keyDownHandler, _matrix) {
     this.matrix = _matrix;
@@ -286,15 +287,9 @@ class ControlGame {
   }
 
   keyBlocker() {
-    const popup = document.getElementById('popupVencedor')
     window.removeEventListener("keyup", this.keyUpHandler);
     window.removeEventListener("keydown", this.keyDownHandler);
     this.finishGame.play(); 
-
-    popup.style.backgroundColor = 'rgba(53, 52, 49, 0.95)';
-    let p = document.createElement("p");
-    popup.append(p);
-    p.innerHTML = `Fulano ganhou!`
     this.endGame();
   }
 
