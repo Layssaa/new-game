@@ -3,8 +3,9 @@ import Player from "./classes/Player";
 import feedbacks from "./messages/feedbacks";
 import { makeGame } from "./runMazeIsa";
 
-export let newPlayer = undefined;
 export const rootDiv = document.querySelector("#root");
+
+let newPlayer;
 
 export const onLoadIndexHtml = () => {
   rootDiv.innerHTML = enterForm;
@@ -40,3 +41,5 @@ export const exit = () => {
   rootDiv.innerHTML = enterForm;
   document.querySelector("#enter-button").addEventListener("click", enter);
 };
+
+export { newPlayer };

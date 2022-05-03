@@ -1,5 +1,9 @@
 import { Game } from "./classes/MazeRenderizer.js";
 import Player from "./classes/Player.js";
+import { newPlayer } from "./enter.js";
+
+let canvas = "";
+let context = "";
 
 export const makeGame = () => {
   const canvas = document.querySelector("canvas");
@@ -84,27 +88,29 @@ function keyUpHandler(_e) {
       break;
   }
 }
+
 const id = localStorage.getItem("id");
 const game = new Game(canvas, context);
-const mockName = "nickname";
-const ws = new Player(mockName);
+
+// const mockName = "nickname";
+// const ws = new Player(mockName);
 
 // TESTE DE LOGIN ---- TEMPORARIO
-setTimeout(() => {
-  ws.sendLogIn();
-}, 5000);
+// setTimeout(() => {
+//   newPlayer.sendLogIn();
+// }, 5000);
 
-game.loop = () => {
-  game.update(move.left, move.up, move.right, move.down);
-  game.renderizeCanvas();
-  requestAnimationFrame(game.loop, canvas);
-};
+// game.loop = () => {
+//   game.update(move.left, move.up, move.right, move.down);
+//   game.renderizeCanvas();
+//   requestAnimationFrame(game.loop, canvas);
+// };
 
-requestAnimationFrame(game.loop, canvas);
-game.renderizeMaze();
+// requestAnimationFrame(game.loop, canvas);
+// game.renderizeMaze();
 
 game.setRequestTimeOut(function (move) {
-  return ws.sendWalk({ move, id });
+  return newPlayer.sendWalk({ move, id });
 });
 
 function readPaths(response) {
@@ -125,5 +131,5 @@ function readPaths(response) {
   }
 }
 
-ws.receidDataMethod(readPaths);
-ws.init();
+newPlayer.receidDataMethod(readPaths);
+newPlayer.init();
