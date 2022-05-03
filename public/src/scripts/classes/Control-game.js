@@ -11,7 +11,7 @@ class ControlGame {
     this.tileSrcSize = 96;
     this.background = new Image();
     this.sapinho = new Image();
-    this.fundo = new Audio(
+    this.bgm = new Audio(
       "https://img.pikbest.com/houzi/audio/original/2020/09/28/e9d3a31f126f972f5217e905ac95c919.mp3"
     );
     this.alfrog = new Audio(
@@ -83,8 +83,8 @@ class ControlGame {
       Math.min(this.mazeHeight - this.camera.height + 150, this.camera.y)
     );
 
-    this.fundo.play();
-    this.fundo.loop = true;
+    this.bgm.play();
+    this.bgm.loop = true;
   }
 
   renderizeCanvas() {
