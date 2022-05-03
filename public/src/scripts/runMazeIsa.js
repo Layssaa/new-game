@@ -5,7 +5,7 @@ let game = undefined;
 export const makeGame = () => {
   const canvas = document.querySelector("canvas");
   const context = canvas.getContext("2d");
-  game = new Game(canvas, context);
+  game = new Game(canvas, context, keyUpHandler, keyDownHandler);
   game.loop = () => {
     game.update(move.left, move.up, move.right, move.down, move.space);
     game.renderizeCanvas();

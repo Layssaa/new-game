@@ -1,5 +1,7 @@
 export class Game {
-  constructor(_canvas, _context) {
+  constructor(_canvas, _context, _keyUpHandler, _keyDownHandler) {
+    this.keyUpHandler = _keyUpHandler
+    this.keyDownHandler = _keyDownHandler
     this.canvas = _canvas;
     this.context = _context;
     this.canvasWidth = this.canvas.width;
@@ -255,8 +257,8 @@ export class Game {
       let overlapY = sumHeight - Math.abs(distY);
 
       if (overlapX > overlapY || !(overlapX > overlapY)) {
-        window.removeEventListener("keyup");
-        window.removeEventListener("keydown");
+        window.removeEventListener("keyup", this.keyUpHandler);
+        window.removeEventListener("keydown", this.keyDownHandler);
       }
     }
   }
