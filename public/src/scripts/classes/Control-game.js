@@ -286,9 +286,13 @@ class ControlGame {
   }
 
   keyBlocker() {
+    const popup = document.getElementById('popupVencedor')
     window.removeEventListener("keyup", this.keyUpHandler);
     window.removeEventListener("keydown", this.keyDownHandler);
-    this.finishGame.play();
+    this.finishGame.play(); 
+
+    let p = document.createElement("p")
+    popup.append("fulano ganhou", p)
     console.log("ganhouu");
     this.endGame();
   }

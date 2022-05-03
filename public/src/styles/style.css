@@ -96,3 +96,12 @@ body {
 #exit-button{
   position: absolute;
 }
+
+.popup{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  height: 200px;
+  width: 200px;
+  background: red;
+}
