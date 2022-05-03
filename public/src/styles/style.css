@@ -2,7 +2,7 @@
 html,
 body {
   background-image: url('../../../public/images/chaozin.png');
-  background-repeat: repeat;
+  background-repeat: repeat ;
   overflow: hidden;
 }
 
