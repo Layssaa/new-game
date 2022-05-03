@@ -1,11 +1,15 @@
 import { Game } from "./classes/MazeRenderizer.js";
+import { exit } from "./logoutGame.js";
 
 let game = undefined;
 
 export const makeGame = () => {
   const canvas = document.querySelector("canvas");
   const context = canvas.getContext("2d");
+
+  document.querySelector(".buttonLogout").addEventListener("click", exit);
   game = new Game(canvas, context, keyUpHandler, keyDownHandler);
+
   game.loop = () => {
     game.update(move.left, move.up, move.right, move.down, move.space);
     game.renderizeCanvas();

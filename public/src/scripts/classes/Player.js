@@ -54,7 +54,16 @@ class Player {
       ...param,
       path: "logout",
       id: this.data.id,
-      channel: this.data.channel,
+      channel: this.channel,
+    });
+  }
+
+  sendWinner(param) {
+    this.socket.send({
+      ...param,
+      path: "end",
+      id: this.data.id,
+      channel: this.channel,
     });
   }
 
