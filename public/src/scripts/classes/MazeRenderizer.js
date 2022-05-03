@@ -33,6 +33,15 @@ export class Game {
     for (let row in this.matrix) {
       for (let column in this.matrix[row]) {
         let tile = this.matrix[row][column];
+        if (tile === 3) {
+          let x = column * this.tileSize;
+          let y = row * this.tileSize;
+          this.context.drawImage(
+            this.background,
+            0, 0, this.tileSrcSize, this.tileSrcSize,
+            x, y, this.tileSize, this.tileSize
+          );
+        } else {
           let x = column * this.tileSize;
           let y = row * this.tileSize;
           this.context.drawImage(
@@ -40,6 +49,7 @@ export class Game {
             tile * this.tileSrcSize, 0, this.tileSrcSize, this.tileSrcSize,
             x, y, this.tileSize, this.tileSize
           );
+        }
           
       }
     }
