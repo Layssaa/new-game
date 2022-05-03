@@ -3,6 +3,7 @@ html,
 body {
   background-repeat: repeat;
   overflow: hidden;
+  background: transparent;
 }
 
 body {
@@ -86,4 +87,12 @@ body {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+}
+
+.exit-button{
+  background: transparent;
+}
+
+#exit-button{
+  position: absolute;
 }
