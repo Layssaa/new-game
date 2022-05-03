@@ -1,22 +1,9 @@
 import { Game } from "./classes/MazeRenderizer.js";
-import Player from "./classes/Player.js";
-import { newPlayer } from "./enter.js";
+import { receivedData, sendWalk } from "./controls.js";
 
-let canvas = "";
-let context = "";
-
-export const makeGame = () => {
-  const canvas = document.querySelector("canvas");
-  const context = canvas.getContext("2d");
-  game = new Game(canvas, context, keyUpHandler, keyDownHandler);
-  game.loop = () => {
-    game.update(move.left, move.up, move.right, move.down, move.space);
-    game.renderizeCanvas();
-    requestAnimationFrame(game.loop, canvas);
-  };
-  requestAnimationFrame(game.loop, canvas);
-  game.renderizeMaze();
-};
+const canvas = document.querySelector("canvas");
+const context = canvas.getContext("2d");
+const game = new Game(canvas, context, keyUpHandler, keyDownHandler);
 
 const keys = {
   left: 37,
@@ -33,9 +20,6 @@ const move = {
   down: false,
   space: false,
 };
-
-window.addEventListener("keydown", keyDownHandler, false);
-window.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(_e) {
   const key = _e.keyCode;
@@ -90,28 +74,6 @@ function keyUpHandler(_e) {
 }
 
 const id = localStorage.getItem("id");
-const game = new Game(canvas, context);
-
-// const mockName = "nickname";
-// const ws = new Player(mockName);
-
-// TESTE DE LOGIN ---- TEMPORARIO
-// setTimeout(() => {
-//   newPlayer.sendLogIn();
-// }, 5000);
-
-// game.loop = () => {
-//   game.update(move.left, move.up, move.right, move.down);
-//   game.renderizeCanvas();
-//   requestAnimationFrame(game.loop, canvas);
-// };
-
-// requestAnimationFrame(game.loop, canvas);
-// game.renderizeMaze();
-
-game.setRequestTimeOut(function (move) {
-  return newPlayer.sendWalk({ move, id });
-});
 
 function readPaths(response) {
   const res = JSON.parse(response.data);
@@ -131,5 +93,24 @@ function readPaths(response) {
   }
 }
 
-newPlayer.receidDataMethod(readPaths);
-newPlayer.init();
+game.setRequestTimeOut(function (move) {
+  return sendWalk({ move, id });
+});
+
+receivedData(readPaths);
+
+window.addEventListener("keydown", keyDownHandler, false);
+window.addEventListener("keyup", keyUpHandler, false);
+
+export const makeGame = () => {
+  game.loop = () => {
+    game.update(move.left, move.up, move.right, move.down, move.space);
+    game.renderizeCanvas();
+    requestAnimationFrame(game.loop, canvas);
+  };
+  requestAnimationFrame(game.loop, canvas);
+  game.renderizeMaze();
+
+  document.querySelector("canvas").display = "block";
+  document.querySelector("#exit-button").display = "block";
+};

@@ -1,11 +1,9 @@
 import { enterForm, maze } from "./html-content";
-import Player from "./classes/Player";
 import feedbacks from "./messages/feedbacks";
 import { makeGame } from "./runMazeIsa";
+import { loginWS } from "./controls";
 
 export const rootDiv = document.querySelector("#root");
-
-let newPlayer;
 
 export const onLoadIndexHtml = () => {
   rootDiv.innerHTML = enterForm;
@@ -27,19 +25,8 @@ export const enter = async () => {
   } else if (document.querySelector("#nickname").value.length <= 0) {
     setMessage(feedbacks.SHORT_NICKNAME);
   } else {
-    newPlayer = new Player(document.querySelector("#nickname").value);
-    await newPlayer.init();
+    loginWS(document.querySelector("#nickname").value);
     rootDiv.innerHTML = maze;
     makeGame();
-    document.querySelector("#exit-button").addEventListener("click", exit);
   }
 };
-
-export const exit = () => {
-  newPlayer.exit();
-  newPlayer = undefined;
-  rootDiv.innerHTML = enterForm;
-  document.querySelector("#enter-button").addEventListener("click", enter);
-};
-
-export { newPlayer };

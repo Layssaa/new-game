@@ -1,7 +1,7 @@
 *,
 html,
 body {
-  background-image: url('../../../public/images/chaozin.png');
+  background-image: url("../../../public/images/chaozin.png");
   background-repeat: repeat;
   overflow: hidden;
 }
@@ -9,4 +9,8 @@ body {
 body {
   margin: 0;
   padding: 0;
+}
+
+#game-board {
+  display: none;
 }

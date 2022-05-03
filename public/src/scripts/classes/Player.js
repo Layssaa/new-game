@@ -9,6 +9,12 @@ class Player {
     this.onMessage = function () {};
   }
 
+  setName(_name) {
+    console.log("set name");
+    console.log(_name);
+    this.name = _name;
+  }
+
   controls(enable) {
     if (enable) {
       this.disabled = true;
