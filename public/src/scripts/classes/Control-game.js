@@ -288,7 +288,6 @@ class ControlGame {
       if (overlapX > overlapY || !(overlapX > overlapY)) {
         this.keyBlocker();
         this.setWinner("idMock");
-        this.sendMoves = function () {};
       }
     }
   }
