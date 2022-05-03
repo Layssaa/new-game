@@ -2,7 +2,7 @@ import { Game } from "./classes/MazeRenderizer.js";
 import { mazeMatrix } from "./html-content/index.js";
 import { exit } from "./logoutGame.js";
 import { keyDownHandler, keyUpHandler, move } from "./keys-control";
-import { endGame, receivedData, sendWalk } from "./request-control.js";
+import { endGame, receivedData, sendWalk, ws } from "./request-control.js";
 
 let game = undefined;
 const id = localStorage.getItem("id");
@@ -51,6 +51,7 @@ function readPaths(response) {
     console.log("end game");
     game.setWinner(res.name);
     game.keyBlocker();
+    ws.sendWalk = function () {};
   }
 }
 
