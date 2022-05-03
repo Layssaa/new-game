@@ -298,7 +298,7 @@ class ControlGame {
   }
 
   doRequest() {
-    this.sendMoves(this.moves);
+    this.sendMoves([this.player.x, this.player.y]);
   }
 
   setMoveRequest(fun) {
