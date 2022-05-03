@@ -10,15 +10,16 @@ class Player {
 
   controls(enable) {
     if (enable) {
-      disabled = true;
+      this.disabled = true;
     } else {
-      disabled = false;
+      this.disabled = false;
     }
   }
 
   init() {
     this.socket.onopen = () => {
       this.controls(false);
+      this.sendLogIn();
     };
 
     this.socket.onerror = (err) => {
@@ -38,13 +39,14 @@ class Player {
     });
   }
 
-  sendLogIn(param) {
-    this.socket.send({
-      ...param,
-      path: "login",
-      id: this.data.id,
-      channel: this.data.channel,
-    });
+  sendLogIn() {
+    this.socket.send(
+      JSON.stringify({
+        name: this.nickname,
+        path: "login",
+        channel: this.channel,
+      })
+    );
   }
 
   sendLogOut(param) {
