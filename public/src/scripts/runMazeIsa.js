@@ -1,7 +1,7 @@
 import { Game } from "./classes/MazeRenderizer.js";
-import mazeMatrix from "./html-content/maze-matrix.js";
+import { mazeMatrix } from "./html-content/index.js";
 import { exit } from "./logoutGame.js";
-import { keyDownHandler, keyUpHandler, move } from "./keys-control"
+import { keyDownHandler, keyUpHandler, move } from "./keys-control";
 
 let game = undefined;
 
