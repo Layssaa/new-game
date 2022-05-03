@@ -12,7 +12,8 @@ const wsServer = (wss, WebSocket) => {
   wss.on("connection", (ws) => {
     ws.on("message", (data) => {
       const { receivedData, error } = parseData(data);
-      console.log(receivedData);
+      console.log("=============================================");
+      console.log("NOVO USUÁRIO: ", receivedData);
 
       if (error) {
         return ws.send({ message: "Please submit a json" });
