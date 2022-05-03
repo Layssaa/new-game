@@ -30,7 +30,6 @@ export const enter = async () => {
     await newPlayer.init();
     rootDiv.innerHTML = maze;
     makeGame();
-    document.querySelector("#exit-button").addEventListener("click", exit);
   }
 };
 

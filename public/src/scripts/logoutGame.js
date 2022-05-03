@@ -1,21 +1,11 @@
-import  Player  from "./classes/Player";
+import { newPlayer } from "./enter.js";
+import enterForm from "./html-content/enter-form.js";
 import logout from "./html-content/logout";
 
-const logoutDiv = document.querySelector("#logout");
-
-logoutDiv.innerHTML = logout;
-
-const exit = () => {
-
-    newPlayer = new Player(document.querySelector("#nickname").value);
-    
-    const newPlayersWS = playersWS.filter((playerWS) => {
-      return playerWS.nickname !== newPlayer.nickname;
-    });
-    playersWS = newPlayersWS;
+export const exit = () => {
     newPlayer.exit();
     newPlayer = undefined
     rootDiv.innerHTML = enterForm;
   };
 
-document.querySelector(".buttonLogout").addEventListener("click", exit);
+// document.querySelector(".buttonLogout").addEventListener("click", exit);
