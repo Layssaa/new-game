@@ -1,4 +1,3 @@
-import { winnerPopUp } from '../html-content/winnerPopUp';
 class ControlGame {
   constructor(_canvas, _context, _keyUpHandler, _keyDownHandler, _matrix) {
     this.matrix = _matrix;
