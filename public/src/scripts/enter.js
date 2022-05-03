@@ -28,7 +28,6 @@ export const enter = async () => {
   } else {
     newPlayer = new Player(document.querySelector("#nickname").value);
     await newPlayer.init();
-    await newPlayer.sendLogIn();
     rootDiv.innerHTML = maze;
     makeGame();
     document.querySelector("#exit-button").addEventListener("click", exit);
@@ -36,10 +35,6 @@ export const enter = async () => {
 };
 
 export const exit = () => {
-  const newPlayersWS = playersWS.filter((playerWS) => {
-    return playerWS.nickname !== newPlayer.nickname;
-  });
-  playersWS = newPlayersWS;
   newPlayer.exit();
   newPlayer = undefined;
   rootDiv.innerHTML = enterForm;

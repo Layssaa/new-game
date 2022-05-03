@@ -19,6 +19,7 @@ class Player {
   init() {
     this.socket.onopen = () => {
       this.controls(false);
+      this.sendLogIn();
     };
 
     this.socket.onerror = (err) => {
