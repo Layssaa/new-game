@@ -4,9 +4,14 @@ export class Game {
     this.context = _context;
     this.canvasWidth = this.canvas.width;
     this.canvasHeight = this.canvas.height;
-    this.tileSize = 72;
+    this.tileSize = 96;
+    this.tileSrcSize = 96;
+    this.background = new Image();
+    this.sapinho = new Image();
     this.loop = function () {};
-  }
+    this.fundo = new Audio('https://img.pikbest.com/houzi/audio/original/2020/09/28/e9d3a31f126f972f5217e905ac95c919.mp3');
+    this.alfrog = new Audio('https://audio-previews.elements.envatousercontent.com/files/294506401/preview.mp3?response-content-disposition=attachment%3B+filename%3D%225EK8XSM-vibrant-game-frog-item.mp3%22')
+  }          
 
   renderizeMaze() {
     this.createMaze();
@@ -20,23 +25,27 @@ export class Game {
 
     this.context.translate(-this.camera.x, -this.camera.y);
 
+    this.background.src = 'https://user-images.githubusercontent.com/78851164/166344197-c76f686c-6fa9-4e59-a129-ed67d2dda4b3.png';
+    this.sapinho.src = 'https://user-images.githubusercontent.com/78851164/166346058-ff6fe5a5-3543-459d-8c4c-356b636df9c8.png'
+
     for (let row in this.matrix) {
       for (let column in this.matrix[row]) {
         let tile = this.matrix[row][column];
-        if (tile === 1) {
           let x = column * this.tileSize;
           let y = row * this.tileSize;
-          this.context.fillRect(x, y, this.tileSize, this.tileSize);
-        }
+          this.context.drawImage(
+            this.background,
+            tile * this.tileSrcSize, 0, this.tileSrcSize, this.tileSrcSize,
+            x, y, this.tileSize, this.tileSize
+          );
+          
       }
     }
 
-    this.context.fillStyle = "#00f";
-    this.context.fillRect(
-      this.player.x,
-      this.player.y,
-      this.player.width,
-      this.player.height
+    this.context.drawImage(
+      this.sapinho,
+      this.player.srcX, this.player.srcY, this.player.width, this.player.height,
+      this.player.x, this.player.y, this.player.width, this.player.height
     );
     this.context.restore();
   }
@@ -147,21 +156,32 @@ export class Game {
     this.player = {
       x: this.starts[this.startRandom].x + (this.tileSize / 2 - this.tileSize / 4),
       y: this.starts[this.startRandom].y + (this.tileSize / 2 - this.tileSize / 4),
-      width: this.tileSize / 2,
-      height: this.tileSize / 2,
-      speed: 8,
+      width: 32,
+      height: 32,
+      speed: 10,
+      srcX: 0,
+      srcY: 0,
     };
   }
 
-  update(_left, _up, _right, _down, _downListener, _upListener) {
+  update(_left, _up, _right, _down,  _space, _downListener, _upListener) {
     if (_left && !_right) {
       this.player.x -= this.player.speed;
+      this.player.srcY = 32;
     } else if (_right && !_left) {
       this.player.x += this.player.speed;
+      this.player.srcY = 0;
     } else if (_up && !_down) {
       this.player.y -= this.player.speed;
     } else if (_down && !_up) {
       this.player.y += this.player.speed;
+    } else if(_space){
+      this.player.y -= 7;
+      setTimeout(() => {
+        this.player.y +=7;
+        this.alfrog.play();
+        _space = _down = _left = _right = _up = false
+      }, 200)
     }
 
     for (let i in this.walls) {
@@ -199,6 +219,9 @@ export class Game {
       0,
       Math.min(this.mazeHeight - this.camera.height + 150, this.camera.y)
     );
+
+    this.fundo.play();
+    this.fundo.loop = true;
   }
 
   wallCollision(objA, objB) {
