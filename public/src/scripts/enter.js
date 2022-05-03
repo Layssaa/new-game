@@ -27,7 +27,6 @@ export const enter = async () => {
   } else if (nickname.length <= 0) {
     setMessage(feedbacks.SHORT_NICKNAME);
   } else {
-    console.log('enter login');
     loginWS(nickname);
     rootDiv.innerHTML = maze;
     makeGame();

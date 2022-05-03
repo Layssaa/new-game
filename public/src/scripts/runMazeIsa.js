@@ -42,7 +42,6 @@ function readPaths(response) {
   }
 
   if (res.path === "login" && res.ok) {
-    console.log("set id from login");
     const receivedId = res.id;
     localStorage.setItem("id", receivedId);
     game.setInfoPlayer({ id: receivedId, name: res.name });

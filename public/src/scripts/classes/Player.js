@@ -57,8 +57,7 @@ class Player {
   }
 
   sendLogIn() {
-    console.log('loginnnnnnnnnnnnnnnnn');
-    this.socket.send(
+    return this.socket.send(
       JSON.stringify({
         name: this.nickname,
         path: "login",
@@ -80,7 +79,7 @@ class Player {
   }
 
   sendEndGame(id) {
-    console.log('end game');
+    console.log("end game");
     console.log(this.nickname);
     return this.socket.send(
       JSON.stringify({
