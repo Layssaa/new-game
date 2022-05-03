@@ -1,5 +1,5 @@
 const { Connection } = require("./connection");
-const { listUsers, channels } = require("../__mock__/data-mock");
+const { listUsers, channels, moves } = require("../__mock__/data-mock");
 
 class Login extends Connection {
   constructor(_data, _ws, _wss, _WebSocket) {
@@ -55,6 +55,7 @@ class Login extends Connection {
         action: "login",
         msg: {
           text: "Login Ok",
+          move: moves
         },
         ok: true,
         path: "login",
