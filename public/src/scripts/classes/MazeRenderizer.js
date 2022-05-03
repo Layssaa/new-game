@@ -15,6 +15,7 @@ export class Game {
     this.sapinho = new Image();
     this.fundo = new Audio('https://img.pikbest.com/houzi/audio/original/2020/09/28/e9d3a31f126f972f5217e905ac95c919.mp3');
     this.alfrog = new Audio('https://audio-previews.elements.envatousercontent.com/files/294506401/preview.mp3?response-content-disposition=attachment%3B+filename%3D%225EK8XSM-vibrant-game-frog-item.mp3%22')
+    this.finishGame = new Audio('https://pic.pikbest.com/00/50/03/534888piCVWT.mp3')
   }          
 
   renderizeMaze() {
@@ -172,7 +173,7 @@ export class Game {
       y: this.starts[this.startRandom].y + (this.tileSize / 2 - this.tileSize / 4),
       width: 32,
       height: 32,
-      speed: 10,
+      speed: 5,
       srcX: 0,
       srcY: 0,
     };
@@ -260,8 +261,9 @@ export class Game {
   keyBlocker() {
     window.removeEventListener("keyup", this.keyUpHandler);
     window.removeEventListener("keydown", this.keyDownHandler);
+    this.finishGame.play();
+    console.log("ganhouu");
     this.endGame();
-    alert("aeeeeeeeee");
   }
 
   setWinner(winnerPlayer){
