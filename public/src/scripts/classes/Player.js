@@ -54,7 +54,7 @@ class Player {
       ...param,
       path: "logout",
       id: this.data.id,
-      channel: this.data.channel,
+      channel: this.channel,
     });
   }
 
@@ -63,7 +63,7 @@ class Player {
       ...param,
       path: "end",
       id: this.data.id,
-      channel: this.data.channel,
+      channel: this.channel,
     });
   }
 
