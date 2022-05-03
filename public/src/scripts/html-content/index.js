@@ -1,4 +1,5 @@
 import enterForm from "./enter-form";
-import maze from "./maze";
+import mockGame from "./mock-game";
+import logoutGame from "./logout";
 
-export { enterForm, maze };
+export { enterForm, mockGame,logoutGame };

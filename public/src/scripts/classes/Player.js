@@ -58,6 +58,15 @@ class Player {
     });
   }
 
+  sendWinner(param) {
+    this.socket.send({
+      ...param,
+      path: "end",
+      id: this.data.id,
+      channel: this.data.channel,
+    });
+  }
+
   exit() {
     this.socket.close();
   }
