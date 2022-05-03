@@ -33,9 +33,3 @@ export const enter = async () => {
   }
 };
 
-export const exit = () => {
-  newPlayer.exit();
-  newPlayer = undefined;
-  rootDiv.innerHTML = enterForm;
-  document.querySelector("#enter-button").addEventListener("click", enter);
-};

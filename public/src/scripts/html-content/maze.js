@@ -9,4 +9,4 @@ style="color: white; background: #353535; border: solid"
 
 `;
 
-export default maze;
+export {maze} ;
