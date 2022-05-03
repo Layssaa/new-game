@@ -29,7 +29,7 @@ class Connection {
             text: "Repeated name",
           },
           ok: false,
-          path: "/login",
+          path: "erro",
           hour: this.hour,
         })
       );

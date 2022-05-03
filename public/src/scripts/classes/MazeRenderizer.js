@@ -3,7 +3,6 @@ import { ControlGame } from "./Control-game";
 export class Game extends ControlGame {
   constructor(_canvas, _context, _keyUpHandler, _keyDownHandler, _matrix) {
     super(_canvas, _context, _keyUpHandler, _keyDownHandler, _matrix);
-    this.winner = undefined;
     this.movesPlayers = [];
     this.moves = [];
     this.keyUpHandler;

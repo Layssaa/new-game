@@ -3,8 +3,10 @@ import Player from "./classes/Player";
 const ws = new Player();
 
 export function loginWS(_name) {
+  console.log("try login");
   ws.setName(_name);
   ws.init();
+  ws.sendLogIn()
 }
 
 export function logoutWS(_name) {

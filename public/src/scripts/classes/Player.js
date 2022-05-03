@@ -11,9 +11,7 @@ class Player {
   }
 
   setName(_name) {
-    console.log("set name");
-    console.log(_name);
-    this.name = _name;
+    this.nickname = _name;
   }
 
   controls(enable) {
@@ -59,6 +57,7 @@ class Player {
   }
 
   sendLogIn() {
+    console.log('loginnnnnnnnnnnnnnnnn');
     this.socket.send(
       JSON.stringify({
         name: this.nickname,
