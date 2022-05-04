@@ -1,2 +1,2 @@
-export * from "./MazeRenderizer"
-export * from "./Player"
+export * from "./MazeRenderizer";
+export * from "./Player";
