@@ -43,8 +43,10 @@ class ControlGame {
       this.doRequest();
     } else if (_space) {
       this.player.y -= 7;
+      this.doRequest();
       setTimeout(() => {
         this.player.y += 7;
+        this.doRequest();
         this.frogAudio.play();
         _space = _down = _left = _right = _up = false;
       }, 200);
