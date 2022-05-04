@@ -5,6 +5,7 @@ import { keyDownHandler, keyUpHandler, move } from "./keys-control";
 import { endGame, receivedData, sendWalk } from "./request-control.js";
 import { rootDiv } from "./enter.js";
 import { winnerPopUp } from "./winnerPopUp.js";
+import { errorFeedback } from "./html-content/error.js";
 
 const id = localStorage.getItem("id");
 let game = undefined;
