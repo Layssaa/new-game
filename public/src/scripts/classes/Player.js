@@ -10,8 +10,8 @@ class Player {
     this.id;
   }
 
-  setName(_name) {
-    this.nickname = _name;
+  setNickname(_nickname) {
+    this.nickname = _nickname;
   }
 
   controls(enable) {
