@@ -5,10 +5,10 @@ export let ws = new Player();
 export function loginWS(_nickname) {
   ws.setNickname(_name);
   ws.init();
-  ws.sendLogIn()
+  ws.sendLogIn();
 }
 
-export function logoutWS(_name) {
+export function logoutWS() {
   ws.sendLogOut();
   ws.exit();
 }
