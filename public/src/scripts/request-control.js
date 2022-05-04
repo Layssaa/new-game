@@ -9,8 +9,10 @@ export function loginWS(_nickname) {
 }
 
 export function logoutWS() {
-  ws.sendLogOut();
+  const id = localStorage.getItem("id");
+  ws.sendLogOut(id);
   ws.exit();
+  localStorage.clear();
 }
 
 export function exitWS() {

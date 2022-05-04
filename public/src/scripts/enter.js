@@ -19,6 +19,7 @@ export const setMessage = (text) => {
 };
 
 export const enter = async () => {
+  console.log("entrou aqui")
   const nickname = document.querySelector("#nickname").value;
   if (/\s/g.test(nickname)) {
     setMessage(feedbacks.BLANK_SPACE);
@@ -30,3 +31,5 @@ export const enter = async () => {
     makeGame();
   }
 };
+
+onLoadIndexHtml()

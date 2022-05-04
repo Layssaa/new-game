@@ -21,6 +21,7 @@ class Connection {
 
   duplicateName() {
     if (this.chatList.find((obj) => obj.name === this.data.name)) {
+      console.log("nome duplicado")
       this.ws.send(
         JSON.stringify({
           status: 401,

@@ -17,6 +17,7 @@ class Logout extends Disconnection {
     super.removePlayerOnList();
     super.removeObjectWS();
     super.removeUserOnChannel();
+    console.log(this.chatList)
   }
 
   sendNotifyForUsers() {

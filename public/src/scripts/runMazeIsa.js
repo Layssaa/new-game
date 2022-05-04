@@ -33,7 +33,6 @@ export const makeGame = () => {
 
   game.renderizeMaze();
   playerInfo = game.getPlayerInfo();
-  sendWalk({ move: [playerInfo.x, playerInfo.y] });
   game.setEndGame(endGame);
 };
 
@@ -54,6 +53,7 @@ function readPaths(response) {
       name: res.name,
       move: [playerInfo.x, playerInfo.y],
     });
+    sendWalk({ move: [playerInfo.x, playerInfo.y],direction:32 });
   }
 
   if (res.path === "entry" && res.ok) {
