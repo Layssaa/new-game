@@ -308,7 +308,7 @@ class ControlGame {
   }
 
   doRequest() {
-    this.sendMoves([this.player.x, this.player.y]);
+    this.sendMoves({ move: [this.player.x, this.player.y] });
   }
 
   setMoveRequest(fun) {
@@ -321,42 +321,36 @@ class ControlGame {
   }
 
   setMovesPlayers(dataPLayer) {
-    console.log(dataPLayer);
-    // const { name, move, id } = dataPLayer;
+    const { name, move, id } = dataPLayer;
 
-    // if (dataPLayer.id === this.infoPlayer.id) {
-    //   console.log("is the same player");
-    //   return;
-    // }
-    // console.log("do map");
-    // this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-    // this.context.save();
+    if (dataPLayer.id === this.infoPlayer.id) {
+      return;
+    }
 
-    // this.movesPlayers[`${id}`].name = name;
-    // this.movesPlayers[`${id}`].move = move;
+    this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+    this.context.save();
 
-    // // const X = move[0];
-    // // const Y = move[1];
+    this.movesPlayers[`${id}`] = { name: "", move: [] };
+    this.movesPlayers[`${id}`].name = name;
+    this.movesPlayers[`${id}`].move = move;
 
-    // this.context.fillStyle = "#00f";
-    // this.context.font = "20px Arial";
+    this.context.fillStyle = "#00f";
+    this.context.font = "20px Arial";
 
-    // const ids = Object.keys(this.movesPlayers);
+    const ids = Object.keys(this.movesPlayers);
 
-    // ids.forEach((idPlayer) => {
-    //   const player = this.movesPlayers[`${idPlayer}`];
-    //   const name = player.name;
-    //   const X = player.move[0];
-    //   const Y = player.move[1];
+    ids.forEach((idPlayer) => {
+      const player = this.movesPlayers[`${idPlayer}`];
+      const name = player.name;
 
-    //   this.context.fillText(name, X - 20, Y - 10);
-    //   this.context.fillRect(X, Y, this.player.width, this.player.height);
-    // });
+      const X = player.move[0];
+      const Y = player.move[1];
 
-    // this.context.restore();
+      this.context.fillText(name, X - 20, Y - 10);
+      this.context.fillRect(X, Y, this.player.width, this.player.height);
+    });
 
-    // this.context.fillText(name, X - 20, Y - 10);
-    // this.context.fillRect(X, Y, this.player.width, this.player.height);
+    this.context.restore();
   }
 }
 

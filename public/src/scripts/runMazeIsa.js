@@ -25,8 +25,8 @@ export const makeGame = () => {
 
   requestAnimationFrame(game.loop, canvas);
 
-  game.setRequestTimeOut(function (move) {
-    return sendWalk({ move, id });
+  game.setMoveRequest(function (move) {
+    return sendWalk({ move });
   });
 
   game.renderizeMaze();
@@ -56,3 +56,4 @@ window.addEventListener("keydown", keyDownHandler, false);
 window.addEventListener("keyup", keyUpHandler, false);
 
 receivedData(readPaths);
+localStorage.clear();

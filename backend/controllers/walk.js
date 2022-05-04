@@ -15,6 +15,8 @@ class Walk extends Connection {
     const { id, move, channel } = this.data;
     console.log('==============data');
     console.log(listUsers);
+    console.log(listUsers[`${id}`]);
+
     if (winner.id) {
       return super.refuseConnection({
         action: "end",

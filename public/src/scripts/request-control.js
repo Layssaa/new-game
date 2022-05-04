@@ -21,7 +21,8 @@ export function receivedData(_fun) {
   ws.receidDataMethod(_fun);
 }
 
-export function sendWalk({ move, id }) {
+export function sendWalk({ move }) {
+  const id = localStorage.getItem("id");
   ws.sendWalk({ move, id });
 }
 
