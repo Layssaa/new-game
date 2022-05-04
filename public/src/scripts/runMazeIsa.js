@@ -10,6 +10,7 @@ import { errorFeedback } from "./html-content/error.js";
 const id = localStorage.getItem("id");
 let game = undefined;
 let playerInfo = {};
+let animationFrame;
 
 export const makeGame = () => {
   const canvas = document.querySelector("canvas");
@@ -22,7 +23,7 @@ export const makeGame = () => {
   game.setLoop(() => {
     game.update(move.left, move.up, move.right, move.down, move.space);
     game.renderizeCanvas();
-    requestAnimationFrame(game.loop, canvas);
+    animationFrame = requestAnimationFrame(game.loop, canvas);
   });
 
   requestAnimationFrame(game.loop, canvas);
@@ -77,3 +78,5 @@ window.addEventListener("keyup", keyUpHandler, false);
 
 receivedData(readPaths);
 localStorage.clear();
+
+export { animationFrame, game };

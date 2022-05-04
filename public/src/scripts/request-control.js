@@ -28,4 +28,5 @@ export function sendWalk({ move, direction }) {
 
 export function endGame() {
   ws.sendEndGame(localStorage.getItem("id"));
+  game.loop = function(){}
 }
