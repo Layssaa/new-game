@@ -3,5 +3,5 @@ export * from "./runMazeIsa";
 export * from "./classes/index";
 export * from "./html-content/index";
 export * from "./messages/index";
-export * from "./logoutGame";
+export * from "./exit";
 export * from "./winnerPopUp";

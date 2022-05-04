@@ -1,6 +1,6 @@
 import { Game } from "./classes/MazeRenderizer.js";
 import { mazeMatrix } from "./html-content/index.js";
-import { exit } from "./logoutGame.js";
+import { exit } from "./exit.js";
 import { keyDownHandler, keyUpHandler, move } from "./keys-control";
 import { endGame, receivedData, sendWalk } from "./request-control.js";
 import { rootDiv } from "./enter.js";
@@ -8,7 +8,7 @@ import { rootDiv } from "./enter.js";
 let game = undefined;
 const id = localStorage.getItem("id");
 
-export const makeGame = () => { 
+export const makeGame = () => {
   const canvas = document.querySelector("canvas");
   const context = canvas.getContext("2d");
 
@@ -36,7 +36,7 @@ function readPaths(response) {
   console.log("run ws read paths");
   console.log(res);
 
-  if(res.path === "erro"){
+  if (res.path === "erro") {
     console.log(res.msg.text);
     rootDiv.append = errorFeedback;
   }
