@@ -44,6 +44,7 @@ function readPaths(response) {
   if (res.path === "login" && res.ok) {
     const receivedId = res.id;
     localStorage.setItem("id", receivedId);
+    localStorage.setItem("name", res.name);
     game.setInfoPlayer({ id: receivedId, name: res.name });
   }
 
