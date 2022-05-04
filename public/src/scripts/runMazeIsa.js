@@ -4,6 +4,7 @@ import { exit } from "./exit.js";
 import { keyDownHandler, keyUpHandler, move } from "./keys-control";
 import { endGame, receivedData, sendWalk } from "./request-control.js";
 import { rootDiv } from "./enter.js";
+import { winnerPopUp } from "./winnerPopUp.js";
 
 export let game = undefined;
 const id = localStorage.getItem("id");
@@ -14,6 +15,7 @@ export const makeGame = () => {
 
   document.querySelector(".buttonLogout").addEventListener("click", exit);
   game = new Game(canvas, context, keyUpHandler, keyDownHandler, mazeMatrix);
+  game.setEndGame(winnerPopUp)
 
   game.setLoop(() => {
     game.update(move.left, move.up, move.right, move.down, move.space);
@@ -44,7 +46,7 @@ function readPaths(response) {
   if (res.path === "login" && res.ok) {
     const receivedId = res.id;
     localStorage.setItem("id", receivedId);
-    localStorage.setItem("name", res.name);
+    localStorage.setItem("nickname", res.name);
     game.setInfoPlayer({ id: receivedId, name: res.name });
   }
 
