@@ -1,5 +1,5 @@
 const { Connection } = require("./connection");
-const { channels, moves, winner } = require("../__mock__/data-mock");
+const { channels, moves, winner, listUsers } = require("../__mock__/data-mock");
 
 class Walk extends Connection {
   constructor(_data, _ws, _wss, _WebSocket) {
@@ -13,7 +13,8 @@ class Walk extends Connection {
 
   sendMovesPlayer() {
     const { id, move, channel } = this.data;
-
+    console.log('==============data');
+    console.log(listUsers);
     if (winner.id) {
       return super.refuseConnection({
         action: "end",
@@ -28,11 +29,10 @@ class Walk extends Connection {
       if (client.readyState === this.websocket.OPEN) {
         client.send(
           JSON.stringify({
+            name: listUsers[`${id}`],
             status: 200,
             action: "walk",
-            msg: {
-              moved: moves[id],
-            },
+            move: moves[id],
             ok: true,
             path: "walk",
             chatList: this.chatList,

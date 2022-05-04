@@ -23,7 +23,7 @@ class ControlGame {
     this.sendMoves = function () {};
     this.infoPlayer = {};
     this.winner;
-
+    this.movesPlayers = {};
   }
 
   update(_left, _up, _right, _down, _space, _downListener, _upListener) {
@@ -318,6 +318,45 @@ class ControlGame {
   setInfoPlayer({ id, name }) {
     this.infoPlayer.id = id;
     this.infoPlayer.name = name;
+  }
+
+  setMovesPlayers(dataPLayer) {
+    console.log(dataPLayer);
+    // const { name, move, id } = dataPLayer;
+
+    // if (dataPLayer.id === this.infoPlayer.id) {
+    //   console.log("is the same player");
+    //   return;
+    // }
+    // console.log("do map");
+    // this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+    // this.context.save();
+
+    // this.movesPlayers[`${id}`].name = name;
+    // this.movesPlayers[`${id}`].move = move;
+
+    // // const X = move[0];
+    // // const Y = move[1];
+
+    // this.context.fillStyle = "#00f";
+    // this.context.font = "20px Arial";
+
+    // const ids = Object.keys(this.movesPlayers);
+
+    // ids.forEach((idPlayer) => {
+    //   const player = this.movesPlayers[`${idPlayer}`];
+    //   const name = player.name;
+    //   const X = player.move[0];
+    //   const Y = player.move[1];
+
+    //   this.context.fillText(name, X - 20, Y - 10);
+    //   this.context.fillRect(X, Y, this.player.width, this.player.height);
+    // });
+
+    // this.context.restore();
+
+    // this.context.fillText(name, X - 20, Y - 10);
+    // this.context.fillRect(X, Y, this.player.width, this.player.height);
   }
 }
 
