@@ -3,7 +3,6 @@ import feedbacks from "./messages/feedbacks";
 import { makeGame } from "./runMazeIsa";
 import { loginWS } from "./request-control";
 
-export let newPlayer = undefined;
 export const rootDiv = document.querySelector("#root");
 
 export const onLoadIndexHtml = () => {
