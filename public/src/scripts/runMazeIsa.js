@@ -10,7 +10,6 @@ import { errorFeedback } from "./html-content/error.js";
 const id = localStorage.getItem("id");
 let game = undefined;
 let playerInfo = {};
-let animationFrame;
 
 export const makeGame = () => {
   const canvas = document.querySelector("canvas");
@@ -18,12 +17,12 @@ export const makeGame = () => {
 
   document.querySelector(".buttonLogout").addEventListener("click", exit);
   game = new Game(canvas, context, keyUpHandler, keyDownHandler, mazeMatrix);
-  game.setEndGame(winnerPopUp)
+  game.setEndGame(winnerPopUp);
 
   game.setLoop(() => {
     game.update(move.left, move.up, move.right, move.down, move.space);
     game.renderizeCanvas();
-    animationFrame = requestAnimationFrame(game.loop, canvas);
+    requestAnimationFrame(game.loop, canvas);
   });
 
   requestAnimationFrame(game.loop, canvas);
@@ -54,7 +53,7 @@ function readPaths(response) {
       name: res.name,
       move: [playerInfo.x, playerInfo.y],
     });
-    sendWalk({ move: [playerInfo.x, playerInfo.y],direction:32 });
+    sendWalk({ move: [playerInfo.x, playerInfo.y], direction: 32 });
   }
 
   if (res.path === "entry" && res.ok) {
@@ -79,4 +78,4 @@ window.addEventListener("keyup", keyUpHandler, false);
 receivedData(readPaths);
 localStorage.clear();
 
-export { animationFrame, game };
+export { game };
