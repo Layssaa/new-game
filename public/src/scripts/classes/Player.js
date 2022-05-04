@@ -29,10 +29,10 @@ class Player {
   init() {
     this.socket.onopen = () => {
       this.controls(false);
-      // this.sendLogIn();
     };
 
     this.socket.onerror = (err) => {
+      console.log(err);
       this.errors.push({
         created_at: new Date(),
         error: err,
@@ -65,13 +65,12 @@ class Player {
     );
   }
 
-  sendLogOut(param) {
+  sendLogOut(id) {
     return this.socket.send(
       JSON.stringify({
-        ...param,
         name: this.nickname,
         path: "logout",
-        id: param.id,
+        id,
         channel: this.channel,
       })
     );

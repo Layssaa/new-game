@@ -128,7 +128,7 @@ class Connection {
   }
 
   getChatList() {
-    this.chatList = channels[this.data.channel].map(function (e) {
+    this.chatList = channels[this.data.channel].filter(function (e) {
       if (listUsers[e.id]) {
         return {
           name: listUsers[e.id],

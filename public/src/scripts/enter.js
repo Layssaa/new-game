@@ -30,3 +30,5 @@ export const enter = async () => {
     makeGame();
   }
 };
+
+onLoadIndexHtml()
