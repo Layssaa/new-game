@@ -30,11 +30,11 @@ class ControlGame {
     if (_left && !_right) {
       this.player.x -= this.player.speed;
       this.player.srcY = 32;
-      this.doRequest();
+      this.doRequest(32);
     } else if (_right && !_left) {
       this.player.x += this.player.speed;
       this.player.srcY = 0;
-      this.doRequest();
+      this.doRequest(0);
     } else if (_up && !_down) {
       this.player.y -= this.player.speed;
       this.doRequest();
@@ -312,8 +312,8 @@ class ControlGame {
     this.endGame = fun;
   }
 
-  doRequest() {
-    this.sendMoves({ move: [this.player.x, this.player.y] });
+  doRequest(direction = 32) {
+    this.sendMoves({ move: [this.player.x, this.player.y], direction });
   }
 
   setMoveRequest(fun) {
@@ -334,7 +334,7 @@ class ControlGame {
   }
 
   setMovesPlayers(dataPLayer) {
-    const { name, move, id } = dataPLayer;
+    const { name, move, id, direction } = dataPLayer;
 
     if (id === this.infoPlayer.id || !id) {
       return;
@@ -343,6 +343,7 @@ class ControlGame {
     this.movesPlayers[`${id}`] = {};
     this.movesPlayers[`${id}`].name = name;
     this.movesPlayers[`${id}`].move = move;
+    this.movesPlayers[`${id}`].direction = direction;
   }
 
   renderOthersPlayers() {
@@ -354,14 +355,15 @@ class ControlGame {
         const player = this.movesPlayers[`${idPlayer}`];
         const name = player.name;
         const move = player.move;
+        const direction = player.direction;
 
         const X = move[0];
         const Y = move[1];
 
         this.context.drawImage(
           this.frogImage,
-          this.player.srcX,
-          this.player.srcY,
+          0,
+          direction,
           this.player.width,
           this.player.height,
           X,

@@ -26,8 +26,8 @@ export const makeGame = () => {
 
   requestAnimationFrame(game.loop, canvas);
 
-  game.setMoveRequest(function ({ move }) {
-    return sendWalk({ move });
+  game.setMoveRequest(function ({ move, direction = 32 }) {
+    return sendWalk({ move, direction });
   });
 
   game.renderizeMaze();

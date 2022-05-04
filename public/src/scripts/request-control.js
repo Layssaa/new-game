@@ -21,9 +21,9 @@ export function receivedData(_fun) {
   ws.receidDataMethod(_fun);
 }
 
-export function sendWalk({ move }) {
+export function sendWalk({ move, direction }) {
   const id = localStorage.getItem("id");
-  ws.sendWalk({ move, id });
+  ws.sendWalk({ move, id, direction });
 }
 
 export function endGame() {
