@@ -1,14 +1,14 @@
 import Player from "./classes/Player";
 
-const ws = new Player();
+export let ws = new Player();
 
-export function loginWS(_name) {
-  ws.setName(_name);
+export function loginWS(_nickname) {
+  ws.setNickname(_nickname);
   ws.init();
-  ws.sendLogIn()
+  ws.sendLogIn();
 }
 
-export function logoutWS(_name) {
+export function logoutWS() {
   ws.sendLogOut();
   ws.exit();
 }
