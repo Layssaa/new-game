@@ -35,11 +35,8 @@ export const makeGame = () => {
 
 function readPaths(response) {
   const res = JSON.parse(response.data);
-  console.log("run ws read paths");
-  console.log(res);
 
   if (res.path === "erro") {
-    console.log(res.msg.text);
     rootDiv.append = errorFeedback;
   }
 
@@ -51,7 +48,6 @@ function readPaths(response) {
   }
 
   if (res.path === "walk" && res.id !== id) {
-    console.log("set moves");
     game.setMovesPlayers(res);
   }
 }
