@@ -306,7 +306,7 @@ class ControlGame {
   keyBlocker() {
     window.removeEventListener("keyup", this.keyUpHandler);
     window.removeEventListener("keydown", this.keyDownHandler);
-    this.finishGame.play(); 
+    this.finishGame.play();
     this.endGame();
   }
 
@@ -337,6 +337,11 @@ class ControlGame {
 
   setMovesPlayers(dataPLayer) {
     const { name, move, id, direction } = dataPLayer;
+
+    if (!move[0] && !move[1]) {
+      delete this.movesPlayers[`${id}`]
+      return;
+    }
 
     if (id === this.infoPlayer.id || !id) {
       return;

@@ -1,6 +1,6 @@
 import Player from "./classes/Player";
 
-export let ws = new Player();
+export const ws = new Player();
 
 export function loginWS(_nickname) {
   ws.setNickname(_nickname);
@@ -11,8 +11,6 @@ export function loginWS(_nickname) {
 export function logoutWS() {
   const id = localStorage.getItem("id");
   ws.sendLogOut(id);
-  ws.exit();
-  localStorage.clear();
 }
 
 export function exitWS() {

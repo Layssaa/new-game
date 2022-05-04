@@ -9,28 +9,30 @@ class Logout extends Disconnection {
     this.chatList;
     this.hour;
     this.websocket;
+    this.userLeft = "";
+    this.id;
+    this.chatList;
   }
 
   logout() {
-    this.notifyUser();
-    this.sendNotifyForUsers();
+    this.id = this.data.id;
+    this.userLeft = listUsers[this.data.id];
+    this.channelLeft = channels[this.data.channel];
     super.removePlayerOnList();
     super.removeObjectWS();
     super.removeUserOnChannel();
-    console.log(this.chatList)
+    this.notifyUser();
+    this.sendNotifyForUsers();
   }
 
   sendNotifyForUsers() {
-    channels[this.data.channel].forEach((client) => {
-      if (
-        client.readyState === this.websocket.OPEN &&
-        client.id !== this.ws.id
-      ) {
+    this.channelLeft.forEach((client) => {
+      if (client.readyState === this.websocket.OPEN && client.id !== this.id) {
         client.send(
           JSON.stringify({
             name: "server",
             msg: {
-              text: `${listUsers[this.data.id]} saiu do canal.`,
+              text: `${this.userLeft} saiu do canal.`,
             },
             hour: this.hour,
             path: "logout",
@@ -50,9 +52,6 @@ class Logout extends Disconnection {
         ok: true,
         path: "logout",
         hour: this.hour,
-        channel: this.data.channel,
-        chatList: this.chatList,
-        id: this.data.id,
       })
     );
   }

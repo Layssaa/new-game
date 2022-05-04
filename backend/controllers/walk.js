@@ -44,6 +44,29 @@ class Walk extends Connection {
       }
     });
   }
+
+  sendLogoutMoves(){
+    const { id, move, channel, direction } = this.data;
+
+    channels[channel].forEach((client) => {
+      if (client.readyState === this.websocket.OPEN) {
+        client.send(
+          JSON.stringify({
+            name: listUsers[`${this.data.id}`],
+            status: 200,
+            action: "walk",
+            move: [null, null],
+            ok: true,
+            path: "walk",
+            chatList: this.chatList,
+            id: this.data.id,
+            hour: this.hour,
+            channel: this.data.channel,
+          })
+        );
+      }
+    });
+  }
 }
 
 module.exports = {

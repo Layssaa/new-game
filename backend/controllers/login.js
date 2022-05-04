@@ -55,7 +55,7 @@ class Login extends Connection {
         action: "login",
         msg: {
           text: "Login Ok",
-          move: moves
+          move: moves,
         },
         name: this.data.name,
         ok: true,
