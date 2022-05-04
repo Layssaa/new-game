@@ -29,7 +29,7 @@ class Player {
   init() {
     this.socket.onopen = () => {
       this.controls(false);
-      this.sendLogIn();
+      // this.sendLogIn();
     };
 
     this.socket.onerror = (err) => {
@@ -42,13 +42,14 @@ class Player {
     this.socket.onmessage = this.onMessage;
   }
 
-  sendWalk(param) {
+  sendWalk({ move, id, direction }) {
     return this.socket.send(
       JSON.stringify({
-        move: param.move,
+        move: move,
+        direction,
         name: this.nickname,
         path: "walk",
-        id: param.id,
+        id: id,
         channel: this.channel,
       })
     );
