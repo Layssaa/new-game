@@ -1,5 +1,4 @@
 import { enterForm, maze } from "./html-content";
-import Player from "./classes/Player";
 import feedbacks from "./messages/feedbacks";
 import { makeGame } from "./runMazeIsa";
 import { loginWS } from "./request-control";
