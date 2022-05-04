@@ -147,6 +147,7 @@ class ControlGame {
       this.player.width,
       this.player.height
     );
+
     this.context.fillStyle = "#FFFFFF";
     this.context.font = "20px Arial";
     this.context.fillText(
@@ -370,7 +371,6 @@ class ControlGame {
         );
 
         this.context.fillText(name, X - 20, Y - 10);
-        this.context.fillRect(X, Y, this.player.width, this.player.height);
       });
   }
 }
