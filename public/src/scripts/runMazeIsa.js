@@ -26,7 +26,7 @@ export const makeGame = () => {
 
   requestAnimationFrame(game.loop, canvas);
 
-  game.setMoveRequest(function (move) {
+  game.setMoveRequest(function ({ move }) {
     return sendWalk({ move });
   });
 
@@ -45,7 +45,6 @@ function readPaths(response) {
   }
 
   if (res.path === "login" && res.ok) {
-    console.log("login");
     const receivedId = res.id;
     localStorage.setItem("id", receivedId);
     localStorage.setItem("nickname", res.name);
@@ -57,7 +56,6 @@ function readPaths(response) {
   }
 
   if (res.path === "entry" && res.ok) {
-    console.log('entry');
     game.setMovesPlayers(res);
   }
 

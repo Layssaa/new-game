@@ -352,8 +352,7 @@ class ControlGame {
       .forEach((idPlayer) => {
         const player = this.movesPlayers[`${idPlayer}`];
         const name = player.name;
-        const move = player.move.move;
-        console.log(player, player.move.move); // arrumar isso
+        const move = player.move;
 
         const X = move[0];
         const Y = move[1];

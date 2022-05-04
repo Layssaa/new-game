@@ -42,13 +42,13 @@ class Player {
     this.socket.onmessage = this.onMessage;
   }
 
-  sendWalk(param) {
+  sendWalk({move , id}) {
     return this.socket.send(
       JSON.stringify({
-        move: param.move,
+        move: move,
         name: this.nickname,
         path: "walk",
-        id: param.id,
+        id: id,
         channel: this.channel,
       })
     );
