@@ -6,5 +6,5 @@ export const exit = () => {
   logoutWS();
   ws = undefined;
   rootDiv.innerHTML = enterForm;
-  localStorage.removeItem("id");
+  localStorage.clear();
 };
