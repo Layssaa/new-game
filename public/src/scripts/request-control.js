@@ -3,7 +3,7 @@ import Player from "./classes/Player";
 export let ws = new Player();
 
 export function loginWS(_nickname) {
-  ws.setNickname(_name);
+  ws.setNickname(_nickname);
   ws.init();
   ws.sendLogIn();
 }
