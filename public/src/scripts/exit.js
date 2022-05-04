@@ -1,8 +1,9 @@
-import { newPlayer, rootDiv } from "./enter.js";
+import { rootDiv } from "./enter.js";
 import enterForm from "./html-content/enter-form.js";
+import { ws } from "./request-control.js";
 
 export const exit = () => {
-  newPlayer.exit();
-  newPlayer = undefined;
+  ws.exit();
+  ws = undefined;
   rootDiv.innerHTML = enterForm;
 };

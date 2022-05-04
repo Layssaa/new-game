@@ -1,6 +1,6 @@
 import Player from "./classes/Player";
 
-export const ws = new Player();
+export let ws = new Player();
 
 export function loginWS(_name) {
   ws.setName(_name);
