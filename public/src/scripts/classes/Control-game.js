@@ -154,7 +154,7 @@ class ControlGame {
       this.player.x - 20,
       this.player.y - 10
     );
-
+    this.renderOthersPlayers();
     this.context.restore();
   }
 
@@ -251,6 +251,10 @@ class ControlGame {
     };
   }
 
+  getPlayerInfo() {
+    return this.player;
+  }
+
   wallCollision(objA, objB) {
     const distX = objA.x + objA.width / 2 - (objB.x + objB.width / 2);
     const distY = objA.y + objA.height / 2 - (objB.y + objB.height / 2);
@@ -315,42 +319,60 @@ class ControlGame {
     this.sendMoves = fun;
   }
 
-  setInfoPlayer({ id, name }) {
+  setInfoPlayer({ id, name, move }) {
+    if (!id) {
+      return;
+    }
+
     this.infoPlayer.id = id;
     this.infoPlayer.name = name;
+
+    this.movesPlayers[`${id}`] = { name: "", move: [] };
+    this.movesPlayers[`${id}`].name = name;
+    this.movesPlayers[`${id}`].move = move;
   }
 
   setMovesPlayers(dataPLayer) {
     const { name, move, id } = dataPLayer;
 
-    if (dataPLayer.id === this.infoPlayer.id) {
+    if (id === this.infoPlayer.id || !id) {
       return;
     }
 
-    this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-    this.context.save();
-
-    this.movesPlayers[`${id}`] = { name: "", move: [] };
+    this.movesPlayers[`${id}`] = {};
     this.movesPlayers[`${id}`].name = name;
     this.movesPlayers[`${id}`].move = move;
+  }
 
-    this.context.fillStyle = "#00f";
-    this.context.font = "20px Arial";
-
+  renderOthersPlayers() {
     const ids = Object.keys(this.movesPlayers);
 
-    ids.forEach((idPlayer) => {
-      const player = this.movesPlayers[`${idPlayer}`];
-      const name = player.name;
+    ids
+      .filter((elem) => elem !== this.infoPlayer.id)
+      .forEach((idPlayer) => {
+        const player = this.movesPlayers[`${idPlayer}`];
+        const name = player.name;
+        const move = player.move.move;
+        console.log(player, player.move.move); // arrumar isso
 
-      const X = player.move[0];
-      const Y = player.move[1];
+        const X = move[0];
+        const Y = move[1];
 
-      this.context.fillText(name, X - 20, Y - 10);
-      this.context.fillRect(X, Y, this.player.width, this.player.height);
-    });
+        this.context.drawImage(
+          this.frogImage,
+          this.player.srcX,
+          this.player.srcY,
+          this.player.width,
+          this.player.height,
+          X,
+          Y,
+          this.player.width,
+          this.player.height
+        );
 
-    this.context.restore();
+        this.context.fillText(name, X - 20, Y - 10);
+        this.context.fillRect(X, Y, this.player.width, this.player.height);
+      });
   }
 }
 

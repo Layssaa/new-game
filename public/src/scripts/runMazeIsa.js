@@ -6,8 +6,9 @@ import { endGame, receivedData, sendWalk } from "./request-control.js";
 import { rootDiv } from "./enter.js";
 import { winnerPopUp } from "./winnerPopUp.js";
 
-export let game = undefined;
 const id = localStorage.getItem("id");
+let game = undefined;
+let playerInfo = {};
 
 export const makeGame = () => {
   const canvas = document.querySelector("canvas");
@@ -30,6 +31,8 @@ export const makeGame = () => {
   });
 
   game.renderizeMaze();
+  playerInfo = game.getPlayerInfo();
+  sendWalk({ move: [playerInfo.x, playerInfo.y] });
   game.setEndGame(endGame);
 };
 
@@ -37,14 +40,25 @@ function readPaths(response) {
   const res = JSON.parse(response.data);
 
   if (res.path === "erro") {
+    console.log(res.msg.text);
     rootDiv.append = errorFeedback;
   }
 
   if (res.path === "login" && res.ok) {
+    console.log("login");
     const receivedId = res.id;
     localStorage.setItem("id", receivedId);
     localStorage.setItem("nickname", res.name);
-    game.setInfoPlayer({ id: receivedId, name: res.name });
+    game.setInfoPlayer({
+      id: receivedId,
+      name: res.name,
+      move: [playerInfo.x, playerInfo.y],
+    });
+  }
+
+  if (res.path === "entry" && res.ok) {
+    console.log('entry');
+    game.setMovesPlayers(res);
   }
 
   if (res.path === "walk" && res.id !== id) {
