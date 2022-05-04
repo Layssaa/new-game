@@ -33,8 +33,6 @@ class Player {
     };
 
     this.socket.onerror = (err) => {
-      console.log("error");
-      console.log(err);
       this.errors.push({
         created_at: new Date(),
         error: err,
@@ -79,8 +77,6 @@ class Player {
   }
 
   sendEndGame(id) {
-    console.log("end game");
-    console.log(this.nickname);
     return this.socket.send(
       JSON.stringify({
         action: "end",
