@@ -29,7 +29,7 @@ class Connection {
             text: "Repeated name",
           },
           ok: false,
-          path: "/login",
+          path: "erro",
           hour: this.hour,
         })
       );
@@ -128,7 +128,7 @@ class Connection {
   }
 
   getChatList() {
-    this.chatList = channels[this.data.channel].map(function (e) {
+    this.chatList = channels[this.data.channel].filter(function (e) {
       if (listUsers[e.id]) {
         return {
           name: listUsers[e.id],

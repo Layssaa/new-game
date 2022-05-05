@@ -2,14 +2,15 @@ import Player from "./classes/Player";
 
 export const ws = new Player();
 
-export function loginWS(_name) {
-  ws.setName(_name);
+export function loginWS(_nickname) {
+  ws.setNickname(_nickname);
   ws.init();
+  ws.sendLogIn();
 }
 
-export function logoutWS(_name) {
-  ws.sendLogOut();
-  ws.exit();
+export function logoutWS() {
+  const id = localStorage.getItem("id");
+  ws.sendLogOut(id);
 }
 
 export function exitWS() {
@@ -20,10 +21,12 @@ export function receivedData(_fun) {
   ws.receidDataMethod(_fun);
 }
 
-export function sendWalk({ move, id }) {
-  ws.sendWalk({ move, id });
+export function sendWalk({ move, direction }) {
+  const id = localStorage.getItem("id");
+  ws.sendWalk({ move, id, direction });
 }
 
 export function endGame() {
   ws.sendEndGame(localStorage.getItem("id"));
+  game.loop = function(){}
 }

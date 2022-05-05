@@ -23,6 +23,9 @@ function walk(data, ws, wss, WebSocket) {
 
 function logout(data, ws, wss, WebSocket) {
   const logoutUser = new Logout(data, ws, wss, WebSocket);
+  const walk = new Walk(data, ws, wss, WebSocket);
+  
+  walk.sendLogoutMoves();
   logoutUser.logout();
 }
 

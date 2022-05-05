@@ -21,17 +21,20 @@ class ControlGame {
       "https://pic.pikbest.com/00/50/03/534888piCVWT.mp3"
     );
     this.sendMoves = function () {};
+    this.infoPlayer = {};
+    this.winner;
+    this.movesPlayers = {};
   }
 
   update(_left, _up, _right, _down, _space, _downListener, _upListener) {
     if (_left && !_right) {
       this.player.x -= this.player.speed;
       this.player.srcY = 32;
-      this.doRequest();
+      this.doRequest(32);
     } else if (_right && !_left) {
       this.player.x += this.player.speed;
       this.player.srcY = 0;
-      this.doRequest();
+      this.doRequest(0);
     } else if (_up && !_down) {
       this.player.y -= this.player.speed;
       this.doRequest();
@@ -40,8 +43,10 @@ class ControlGame {
       this.doRequest();
     } else if (_space) {
       this.player.y -= 7;
+      this.doRequest();
       setTimeout(() => {
         this.player.y += 7;
+        this.doRequest();
         this.frogAudio.play();
         _space = _down = _left = _right = _up = false;
       }, 200);
@@ -144,6 +149,15 @@ class ControlGame {
       this.player.width,
       this.player.height
     );
+
+    this.context.fillStyle = "#FFFFFF";
+    this.context.font = "20px Arial";
+    this.context.fillText(
+      this.infoPlayer.name,
+      this.player.x - 20,
+      this.player.y - 10
+    );
+    this.renderOthersPlayers();
     this.context.restore();
   }
 
@@ -240,6 +254,10 @@ class ControlGame {
     };
   }
 
+  getPlayerInfo() {
+    return this.player;
+  }
+
   wallCollision(objA, objB) {
     const distX = objA.x + objA.width / 2 - (objB.x + objB.width / 2);
     const distY = objA.y + objA.height / 2 - (objB.y + objB.height / 2);
@@ -289,7 +307,6 @@ class ControlGame {
     window.removeEventListener("keyup", this.keyUpHandler);
     window.removeEventListener("keydown", this.keyDownHandler);
     this.finishGame.play();
-    console.log("ganhouu");
     this.endGame();
   }
 
@@ -297,12 +314,73 @@ class ControlGame {
     this.endGame = fun;
   }
 
-  doRequest() {
-    this.sendMoves([this.player.x, this.player.y]);
+  doRequest(direction = 32) {
+    this.sendMoves({ move: [this.player.x, this.player.y], direction });
   }
 
   setMoveRequest(fun) {
     this.sendMoves = fun;
+  }
+
+  setInfoPlayer({ id, name, move }) {
+    if (!id) {
+      return;
+    }
+
+    this.infoPlayer.id = id;
+    this.infoPlayer.name = name;
+
+    this.movesPlayers[`${id}`] = { name: "", move: [] };
+    this.movesPlayers[`${id}`].name = name;
+    this.movesPlayers[`${id}`].move = move;
+  }
+
+  setMovesPlayers(dataPLayer) {
+    const { name, move, id, direction } = dataPLayer;
+
+    if (!move[0] && !move[1]) {
+      delete this.movesPlayers[`${id}`]
+      return;
+    }
+
+    if (id === this.infoPlayer.id || !id) {
+      return;
+    }
+
+    this.movesPlayers[`${id}`] = {};
+    this.movesPlayers[`${id}`].name = name;
+    this.movesPlayers[`${id}`].move = move;
+    this.movesPlayers[`${id}`].direction = direction;
+  }
+
+  renderOthersPlayers() {
+    const ids = Object.keys(this.movesPlayers);
+
+    ids
+      .filter((elem) => elem !== this.infoPlayer.id)
+      .forEach((idPlayer) => {
+        const player = this.movesPlayers[`${idPlayer}`];
+        const name = player.name;
+        const move = player.move;
+        const direction = player.direction;
+
+        const X = move[0];
+        const Y = move[1];
+
+        this.context.drawImage(
+          this.frogImage,
+          0,
+          direction,
+          this.player.width,
+          this.player.height,
+          X,
+          Y,
+          this.player.width,
+          this.player.height
+        );
+
+        this.context.fillText(name, X - 20, Y - 10);
+      });
   }
 }
 

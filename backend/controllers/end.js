@@ -15,7 +15,11 @@ class EndGame extends Connection {
     const { name, path, action, id } = this.data;
 
     if (winner.id) {
-      return super.refuseConnection({ action, path, description: "end game" });
+      return super.refuseConnection({
+        action,
+        path: "erro",
+        description: "end game",
+      });
     }
 
     super.setWinner({ id, name });

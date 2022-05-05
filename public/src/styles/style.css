@@ -7,18 +7,18 @@ body {
 }
 
 body {
-  background-image: url('../../../public/images/chaozin.png');
+  background-image: url("../../../public/images/chaozin.png");
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
 }
 
-#root{
-  background-image: url('../../../public/images/chaozin.png');
+#root {
+  background-image: url("../../../public/images/chaozin.png");
 }
 
-.login-container{
+.login-container {
   width: 400px;
   height: 300px;
   background-color: rgba(53, 52, 49, 0.7);
@@ -28,31 +28,31 @@ body {
   align-items: center;
   flex-direction: column;
   color: #169851;
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
   font-size: 14px;
   margin-top: 40%;
 }
 
-.title{
+.title {
   display: flex;
   align-items: center;
   margin-bottom: 30px;
 }
 
-.sapin{
+.sapin {
   width: 32px;
   height: 32px;
-  background-image: url('../../images/sapao.gif');
+  background-image: url("../../images/sapao.gif");
   margin-left: 15px;
 }
 
-#enter-form{
+#enter-form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#nickname{
+#nickname {
   outline: none;
   height: 35px;
   width: 200px;
@@ -62,11 +62,11 @@ body {
   border-radius: 10px;
   text-align: center;
   font-size: 17px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin-bottom: 10px;
 }
 
-#enter-button{
+#enter-button {
   margin-top: 15px;
   height: 40px;
   width: 80px;
@@ -74,7 +74,7 @@ body {
   background-color: rgba(22, 152, 81, 1);
   border: none;
   color: #f7f7f7;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .buttonLogout {
@@ -89,10 +89,66 @@ body {
   cursor: pointer;
 }
 
-.exit-button{
+.exit-button {
   background: transparent;
 }
 
-#exit-button{
+#exit-button {
   position: absolute;
+}
+
+#card {
+  width: 300px;
+  height: 80px;
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid #c4c4c4;
+  align-items: center;
+}
+
+#card img {
+  height: 50px;
+}
+
+#space-text {
+  text-align: left;
+  overflow-wrap: anywhere;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#space-text p,
+#space-text span {
+  width: fit-content;
+  height: fit-content;
+  color: #232323;
+  font-family: "Poppins";
+  right: 10;
+  bottom: 20;
+}
+
+#space-text span {
+  font-size: 20px;
+}
+
+#space-text p {
+  font-size: 15px;
+}
+
+.pop-up {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 400px;
+  height: 300px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #169851;
+  font-family: "Press Start 2P", cursive;
+  font-size: 25px;
+  margin-top: 10%;
+  margin-left: 35%;
 }

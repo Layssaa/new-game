@@ -10,10 +10,8 @@ class Player {
     this.id;
   }
 
-  setName(_name) {
-    console.log("set name");
-    console.log(_name);
-    this.name = _name;
+  setNickname(_nickname) {
+    this.nickname = _nickname;
   }
 
   controls(enable) {
@@ -31,11 +29,9 @@ class Player {
   init() {
     this.socket.onopen = () => {
       this.controls(false);
-      this.sendLogIn();
     };
 
     this.socket.onerror = (err) => {
-      console.log("error");
       console.log(err);
       this.errors.push({
         created_at: new Date(),
@@ -46,20 +42,21 @@ class Player {
     this.socket.onmessage = this.onMessage;
   }
 
-  sendWalk(param) {
+  sendWalk({ move, id, direction }) {
     return this.socket.send(
       JSON.stringify({
-        move: param.move,
+        move: move,
+        direction,
         name: this.nickname,
         path: "walk",
-        id: param.id,
+        id: id,
         channel: this.channel,
       })
     );
   }
 
   sendLogIn() {
-    this.socket.send(
+    return this.socket.send(
       JSON.stringify({
         name: this.nickname,
         path: "login",
@@ -68,21 +65,18 @@ class Player {
     );
   }
 
-  sendLogOut(param) {
+  sendLogOut(id) {
     return this.socket.send(
       JSON.stringify({
-        ...param,
         name: this.nickname,
         path: "logout",
-        id: param.id,
+        id,
         channel: this.channel,
       })
     );
   }
 
   sendEndGame(id) {
-    console.log('end game');
-    console.log(this.nickname);
     return this.socket.send(
       JSON.stringify({
         action: "end",
