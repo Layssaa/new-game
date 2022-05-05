@@ -1,7 +1,10 @@
-export const winnerPopUp = () => {
+export const winnerPopUp = (winner) => {
   const popUp = document.querySelector("#winner-pop-up");
-  popUp.style.backgroundColor = "rgba(53, 52, 49, 0.95)";
+  const btn_logout = document.getElementById("exit-button")
+  popUp.style.backgroundColor = "rgba(53, 52, 49, 1)";
   let p = document.createElement("p");
   popUp.append(p);
-  p.innerHTML = `${localStorage.getItem("nickname")} ganhou!`;
+  popUp.append(btn_logout);
+  btn_logout.style.position = "relative";
+  p.innerHTML = `${winner} ganhou!`;
 };

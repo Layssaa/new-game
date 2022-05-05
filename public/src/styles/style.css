@@ -138,17 +138,15 @@ body {
 
 .pop-up {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 400px;
-  height: 300px;
-  border-radius: 20px;
+  left: 0;
+  /* margin-left: -15px; */
+  width: 100vw;
+  height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   color: #169851;
   font-family: "Press Start 2P", cursive;
   font-size: 25px;
-  margin-top: 10%;
-  margin-left: 35%;
 }

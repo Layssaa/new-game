@@ -17,7 +17,7 @@ export const makeGame = () => {
 
   document.querySelector(".buttonLogout").addEventListener("click", exit);
   game = new Game(canvas, context, keyUpHandler, keyDownHandler, mazeMatrix);
-  game.setEndGame(winnerPopUp);
+  // game.setEndGame(winnerPopUp)
 
   game.setLoop(() => {
     game.update(move.left, move.up, move.right, move.down, move.space);
@@ -65,11 +65,12 @@ function readPaths(response) {
   }
 
   if (res.path === "end" && res.id !== id) {
-    console.log("end game");
-    game.setWinner(res.name);
-    game.keyBlocker();
-    ws.sendWalk = function () {};
-  }
+      console.log("end game");
+      game.setWinner(res.name);
+      winnerPopUp(res.name);
+      game.keyBlocker();
+      game = null;
+    }
 }
 
 window.addEventListener("keydown", keyDownHandler, false);

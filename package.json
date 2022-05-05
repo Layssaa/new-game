@@ -4,6 +4,7 @@
   "description": "\"A game like Gartic\"",
   "main": "backend/app.js",
   "scripts": {
+    "dev:build": "yarn build & nodemon backend/app.js",
     "test": "sudo node ./backend/server.js",
     "start": "node backend/app.js",
     "build": "webpack",
