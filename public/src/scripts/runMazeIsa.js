@@ -2,7 +2,7 @@ import { Game } from "./classes/MazeRenderizer.js";
 import { mazeMatrix } from "./html-content/index.js";
 import { exit } from "./exit.js";
 import { keyDownHandler, keyUpHandler, move } from "./keys-control";
-import { endGame, receivedData, sendWalk } from "./request-control.js";
+import { endGame, receivedData, sendWalk, ws } from "./request-control.js";
 import { rootDiv } from "./enter.js";
 import { winnerPopUp } from "./winnerPopUp.js";
 import { errorFeedback } from "./html-content/error.js";
@@ -10,6 +10,8 @@ import { errorFeedback } from "./html-content/error.js";
 const id = localStorage.getItem("id");
 let game = undefined;
 let playerInfo = {};
+let animationFrame;
+let loopAnimationFrame;
 
 export const makeGame = () => {
   const canvas = document.querySelector("canvas");
@@ -17,15 +19,14 @@ export const makeGame = () => {
 
   document.querySelector(".buttonLogout").addEventListener("click", exit);
   game = new Game(canvas, context, keyUpHandler, keyDownHandler, mazeMatrix);
-  game.setEndGame(winnerPopUp)
 
   game.setLoop(() => {
     game.update(move.left, move.up, move.right, move.down, move.space);
     game.renderizeCanvas();
-    requestAnimationFrame(game.loop, canvas);
+    loopAnimationFrame = requestAnimationFrame(game.loop, canvas);
   });
 
-  requestAnimationFrame(game.loop, canvas);
+  animationFrame = requestAnimationFrame(game.loop, canvas);
 
   game.setMoveRequest(function ({ move, direction = 32 }) {
     return sendWalk({ move, direction });
@@ -41,7 +42,6 @@ function readPaths(response) {
 
   if (res.path === "erro") {
     console.log(res.msg.text);
-    rootDiv.append = errorFeedback;
   }
 
   if (res.path === "login" && res.ok) {
@@ -53,7 +53,7 @@ function readPaths(response) {
       name: res.name,
       move: [playerInfo.x, playerInfo.y],
     });
-    sendWalk({ move: [playerInfo.x, playerInfo.y],direction:32 });
+    sendWalk({ move: [playerInfo.x, playerInfo.y], direction: 32 });
   }
 
   if (res.path === "entry" && res.ok) {
@@ -63,6 +63,17 @@ function readPaths(response) {
   if (res.path === "walk" && res.id !== id) {
     game.setMovesPlayers(res);
   }
+
+  if (res.path === "end" && res.id !== id) {
+      game.setWinner(res.id);
+      winnerPopUp(res.name);
+      game.keyBlocker();
+      window.cancelAnimationFrame(animationFrame);
+      window.cancelAnimationFrame(loopAnimationFrame);
+      animationFrame = undefined;
+      loopAnimationFrame = undefined;
+      game = null;
+    }
 }
 
 window.addEventListener("keydown", keyDownHandler, false);
@@ -70,3 +81,18 @@ window.addEventListener("keyup", keyUpHandler, false);
 
 receivedData(readPaths);
 localStorage.clear();
+
+export function gameInit() {
+  window.addEventListener("keydown", keyDownHandler, false);
+  window.addEventListener("keyup", keyUpHandler, false);
+
+  move.left = false;
+  move.up = false;
+  move.right = false;
+  move.down = false;
+  move.space = false;
+}
+
+gameInit();
+
+export { game, animationFrame, loopAnimationFrame };

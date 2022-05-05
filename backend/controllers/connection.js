@@ -76,7 +76,7 @@ class Connection {
             text: "invalid channel",
           },
           ok: false,
-          path: "/login",
+          path: "login",
           hour: this.hour,
         })
       );
@@ -118,17 +118,18 @@ class Connection {
           description,
         },
         ok: false,
-        path,
+        path: "erro",
         hour: this.hour,
         channel: this.data.channel,
         chatList: this.chatList,
         id: this.data.id,
+        name: this.data.name
       })
     );
   }
 
   getChatList() {
-    this.chatList = channels[this.data.channel].filter(function (e) {
+    this.chatList = channels[this.data.channel].map(function (e) {
       if (listUsers[e.id]) {
         return {
           name: listUsers[e.id],

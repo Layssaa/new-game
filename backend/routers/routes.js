@@ -10,14 +10,6 @@ function login(data, ws, wss, WebSocket) {
 function walk(data, ws, wss, WebSocket) {
   const playerWalk = new Walk(data, ws, wss, WebSocket);
 
-  if (winner.id) {
-    return playerWalk.refuseConnection({
-      action: "end",
-      path: "end",
-      description: "end game",
-    });
-  }
-
   playerWalk.sendMovesPlayer();
 }
 
@@ -32,21 +24,10 @@ function logout(data, ws, wss, WebSocket) {
 function endGame(data, ws, wss, WebSocket) {
   const game = new EndGame(data, ws, wss, WebSocket);
 
-  if (winner.id) {
-    return game.refuseConnection({
-      action: "end",
-      path: "end",
-      description: "end game",
-    });
-  }
-
   const list = Object.keys(listUsers);
 
-  setTimeout(() => {
-    resetGame(list);
-  }, 30000);
-
-  game.notifyEndGame();
+  game.setResetTimeOut(resetGame);
+  game.notifyEndGame(list);
 }
 
 function resetGame(chatList) {
@@ -54,7 +35,7 @@ function resetGame(chatList) {
   winner.name = undefined;
 
   chatList.forEach((id) => {
-    delete moves[id];
+    delete moves[`${id}`];
   });
 }
 

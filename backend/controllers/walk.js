@@ -22,7 +22,7 @@ class Walk extends Connection {
       });
     }
 
-    moves[id] = move;
+    moves[`${id}`] = move;
 
     channels[channel].forEach((client) => {
       if (client.readyState === this.websocket.OPEN) {

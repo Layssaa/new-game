@@ -293,8 +293,10 @@ class ControlGame {
       const overlapY = sumHeight - Math.abs(distY);
 
       if (overlapX > overlapY || !(overlapX > overlapY)) {
+        objA.x = distX > 0 ? objA.x + overlapX + 2 : objA.x - overlapX - 2;
         this.keyBlocker();
         this.setWinner("idMock");
+        this.endGame();
       }
     }
   }
@@ -304,9 +306,9 @@ class ControlGame {
   }
 
   keyBlocker() {
+    window.removeEventListener("keyup", this.keyUpHandler);
     window.removeEventListener("keydown", this.keyDownHandler);
     this.finishGame.play();
-    this.endGame();
   }
 
   setEndGame(fun) {
