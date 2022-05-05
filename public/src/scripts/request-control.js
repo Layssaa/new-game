@@ -29,7 +29,7 @@ export function sendWalk({ move, direction }) {
 
 export function endGame() {
   ws.sendEndGame(localStorage.getItem("id"));
-  game.setLoop(()=>{})
-  cancelAnimationFrame(animationFrame)
-  cancelAnimationFrame(loopAnimationFrame)
+  game.setLoop(()=>{});
+  cancelAnimationFrame(animationFrame);
+  cancelAnimationFrame(loopAnimationFrame);
 }

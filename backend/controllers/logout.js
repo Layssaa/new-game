@@ -19,9 +19,9 @@ class Logout extends Disconnection {
     this.userLeft = listUsers[this.data.id];
     this.channelLeft = channels[this.data.channel];
     delete moves[`${this.id}`];
+    super.removeUserOnChannel();
     super.removePlayerOnList();
     super.removeObjectWS();
-    super.removeUserOnChannel();
     this.notifyUser();
     this.sendNotifyForUsers();
   }

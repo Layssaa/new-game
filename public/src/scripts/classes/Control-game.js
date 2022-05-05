@@ -296,6 +296,7 @@ class ControlGame {
         objA.x = distX > 0 ? objA.x + overlapX + 2 : objA.x - overlapX - 2;
         this.keyBlocker();
         this.setWinner("idMock");
+        this.endGame();
       }
     }
   }
@@ -308,7 +309,6 @@ class ControlGame {
     window.removeEventListener("keyup", this.keyUpHandler);
     window.removeEventListener("keydown", this.keyDownHandler);
     this.finishGame.play();
-    this.endGame();
   }
 
   setEndGame(fun) {
