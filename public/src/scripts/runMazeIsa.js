@@ -10,6 +10,8 @@ import { errorFeedback } from "./html-content/error.js";
 const id = localStorage.getItem("id");
 let game = undefined;
 let playerInfo = {};
+let animationFrame;
+let loopAnimationFrame;
 
 export const makeGame = () => {
   const canvas = document.querySelector("canvas");
@@ -22,10 +24,10 @@ export const makeGame = () => {
   game.setLoop(() => {
     game.update(move.left, move.up, move.right, move.down, move.space);
     game.renderizeCanvas();
-    requestAnimationFrame(game.loop, canvas);
+    loopAnimationFrame = requestAnimationFrame(game.loop, canvas);
   });
 
-  requestAnimationFrame(game.loop, canvas);
+  animationFrame = requestAnimationFrame(game.loop, canvas);
 
   game.setMoveRequest(function ({ move, direction = 32 }) {
     return sendWalk({ move, direction });
@@ -41,7 +43,7 @@ function readPaths(response) {
 
   if (res.path === "erro") {
     console.log(res.msg.text);
-    rootDiv.append = errorFeedback;
+    // rootDiv.append = errorFeedback;
   }
 
   if (res.path === "login" && res.ok) {
@@ -66,9 +68,13 @@ function readPaths(response) {
 
   if (res.path === "end" && res.id !== id) {
       console.log("end game");
-      game.setWinner(res.name);
+      game.setWinner(res.id);
       winnerPopUp(res.name);
       game.keyBlocker();
+      window.cancelAnimationFrame(animationFrame);
+      window.cancelAnimationFrame(loopAnimationFrame);
+      animationFrame = undefined;
+      loopAnimationFrame = undefined;
       game = null;
     }
 }
@@ -79,4 +85,4 @@ window.addEventListener("keyup", keyUpHandler, false);
 receivedData(readPaths);
 localStorage.clear();
 
-export { game };
+export { game, animationFrame, loopAnimationFrame };

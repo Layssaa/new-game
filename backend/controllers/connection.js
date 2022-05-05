@@ -76,7 +76,7 @@ class Connection {
             text: "invalid channel",
           },
           ok: false,
-          path: "/login",
+          path: "login",
           hour: this.hour,
         })
       );
@@ -118,11 +118,12 @@ class Connection {
           description,
         },
         ok: false,
-        path,
+        path: "erro",
         hour: this.hour,
         channel: this.data.channel,
         chatList: this.chatList,
         id: this.data.id,
+        name: this.data.name
       })
     );
   }

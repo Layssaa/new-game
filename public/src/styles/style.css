@@ -95,6 +95,7 @@ body {
 
 #exit-button {
   position: absolute;
+  z-index: 1;
 }
 
 #card {

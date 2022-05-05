@@ -9,9 +9,14 @@ class EndGame extends Connection {
     this.chatList;
     this.hour;
     this.websocket;
+    this.resetTimeOut = function () {};
   }
 
-  notifyEndGame() {
+  setResetTimeOut(resetTimeOut) {
+    this.resetTimeOut = resetTimeOut;
+  }
+
+  notifyEndGame(list) {
     const { name, path, action, id } = this.data;
 
     if (winner.id) {
@@ -31,6 +36,28 @@ class EndGame extends Connection {
     };
 
     super.sendMessage({ name, path, action, params });
+    
+    this.notifyWinner();
+
+    setTimeout(() => {
+      this.resetTimeOut(list);
+    }, 1000);
+  }
+
+  notifyWinner() {
+    return this.ws.send(
+      JSON.stringify({
+        status: 200,
+        action: "end",
+        msg: "You winner",
+        ok: true,
+        path: "end",
+        hour: this.hour,
+        channel: this.data.channel,
+        chatList: this.chatList,
+        id: this.data.id,
+      })
+    );
   }
 }
 

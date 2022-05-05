@@ -1,4 +1,5 @@
 import Player from "./classes/Player";
+import { animationFrame, game, loopAnimationFrame } from "./runMazeIsa";
 
 export const ws = new Player();
 
@@ -28,5 +29,7 @@ export function sendWalk({ move, direction }) {
 
 export function endGame() {
   ws.sendEndGame(localStorage.getItem("id"));
-  // game.loop = function(){}
+  game.setLoop(()=>{})
+  cancelAnimationFrame(animationFrame)
+  cancelAnimationFrame(loopAnimationFrame)
 }

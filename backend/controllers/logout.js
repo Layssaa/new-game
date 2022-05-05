@@ -1,4 +1,4 @@
-const { listUsers, channels } = require("../__mock__/data-mock.js");
+const { listUsers, channels, moves } = require("../__mock__/data-mock.js");
 const { Disconnection } = require("./disconnection.js");
 
 class Logout extends Disconnection {
@@ -18,6 +18,7 @@ class Logout extends Disconnection {
     this.id = this.data.id;
     this.userLeft = listUsers[this.data.id];
     this.channelLeft = channels[this.data.channel];
+    delete moves[`${this.id}`];
     super.removePlayerOnList();
     super.removeObjectWS();
     super.removeUserOnChannel();
