@@ -8,6 +8,7 @@ export const rootDiv = document.querySelector("#root");
 export const onLoadIndexHtml = () => {
   rootDiv.innerHTML = enterForm;
   document.querySelector("#enter-button").addEventListener("click", enter);
+  window.addEventListener("keydown", keyDownHandler);
 };
 
 export const setMessage = (text) => {
@@ -30,5 +31,11 @@ export const enter = async () => {
     makeGame();
   }
 };
+
+export const keyDownHandler = (_event) => {
+  if (_event.keyCode === 13) {
+    enter();
+  }
+}
 
 onLoadIndexHtml()

@@ -304,7 +304,6 @@ class ControlGame {
   }
 
   keyBlocker() {
-    window.removeEventListener("keyup", this.keyUpHandler);
     window.removeEventListener("keydown", this.keyDownHandler);
     this.finishGame.play();
     this.endGame();
