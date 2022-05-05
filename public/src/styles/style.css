@@ -151,3 +151,21 @@ body {
   font-family: "Press Start 2P", cursive;
   font-size: 25px;
 }
+
+#main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#nameboard {
+  color: white;
+  background:rgba(0,0,0,0.6);
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 30px;
+  font-family: 'Courier New', monospace;
+}

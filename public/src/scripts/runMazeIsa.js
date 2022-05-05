@@ -39,13 +39,21 @@ export const makeGame = () => {
 
 function readPaths(response) {
   const res = JSON.parse(response.data);
-
   if (res.path === "erro") {
     console.log(res.msg.text);
   }
 
   if (res.path === "login" && res.ok) {
     const receivedId = res.id;
+
+    const nameBoard = document.getElementById("nameboard");
+    
+    nameBoard.innerHTML = ` `;
+
+    res.msg.users.forEach(name => {
+      nameBoard.innerHTML += `<p>(${name})</p>`;
+    });
+
     localStorage.setItem("id", receivedId);
     localStorage.setItem("nickname", res.name);
     game.setInfoPlayer({
