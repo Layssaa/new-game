@@ -8,7 +8,7 @@ export const rootDiv = document.querySelector("#root");
 export const onLoadIndexHtml = () => {
   rootDiv.innerHTML = enterForm;
   document.querySelector("#enter-button").addEventListener("click", enter);
-  window.addEventListener("keydown", keyDownHandler);
+  window.addEventListener("keydown", enterKey);
 };
 
 export const setMessage = (text) => {
@@ -32,7 +32,7 @@ export const enter = async () => {
   }
 };
 
-export const keyDownHandler = (_event) => {
+export const enterKey = (_event) => {
   if (_event.keyCode === 13) {
     enter();
   }

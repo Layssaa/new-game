@@ -32,7 +32,6 @@ class Player {
     };
 
     this.socket.onerror = (err) => {
-      console.log(err);
       this.errors.push({
         created_at: new Date(),
         error: err,
