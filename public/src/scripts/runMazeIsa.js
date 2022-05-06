@@ -3,9 +3,9 @@ import { mazeMatrix } from "./html-content/index.js";
 import { exit } from "./exit.js";
 import { keyDownHandler, keyUpHandler, move } from "./keys-control";
 import { endGame, receivedData, sendWalk, ws } from "./request-control.js";
-import { rootDiv } from "./enter.js";
+import { rootDiv, setMessage } from "./enter.js";
 import { winnerPopUp } from "./winnerPopUp.js";
-import { errorFeedback } from "./html-content/error.js";
+import { maze } from "./html-content";
 
 const id = localStorage.getItem("id");
 let game = undefined;
@@ -40,12 +40,24 @@ export const makeGame = () => {
 function readPaths(response) {
   const res = JSON.parse(response.data);
 
-  if (res.path === "erro") {
-    console.log(res.msg.text);
+  if (res.path === "erro" && res.msg.text === "Repeated name") {
+    return setMessage("Esse nome já está sendo usado.");
   }
 
   if (res.path === "login" && res.ok) {
+    rootDiv.innerHTML = maze;
+    makeGame();
+
     const receivedId = res.id;
+
+    const nameBoard = document.getElementById("nameboard");
+
+    nameBoard.innerHTML = ` `;
+
+    res.msg.users.forEach((name) => {
+      nameBoard.innerHTML += `<p>(${name})</p>`;
+    });
+
     localStorage.setItem("id", receivedId);
     localStorage.setItem("nickname", res.name);
     game.setInfoPlayer({
@@ -65,15 +77,15 @@ function readPaths(response) {
   }
 
   if (res.path === "end" && res.id !== id) {
-      game.setWinner(res.id);
-      winnerPopUp(res.name);
-      game.keyBlocker();
-      window.cancelAnimationFrame(animationFrame);
-      window.cancelAnimationFrame(loopAnimationFrame);
-      animationFrame = undefined;
-      loopAnimationFrame = undefined;
-      game = null;
-    }
+    game.setWinner(res.id);
+    winnerPopUp(res.name);
+    game.keyBlocker();
+    window.cancelAnimationFrame(animationFrame);
+    window.cancelAnimationFrame(loopAnimationFrame);
+    animationFrame = undefined;
+    loopAnimationFrame = undefined;
+    game = null;
+  }
 }
 
 window.addEventListener("keydown", keyDownHandler, false);

@@ -27,8 +27,6 @@ export const enter = async () => {
     setMessage(feedbacks.SHORT_NICKNAME);
   } else {
     loginWS(nickname);
-    rootDiv.innerHTML = maze;
-    makeGame();
   }
 };
 

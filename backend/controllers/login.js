@@ -55,6 +55,7 @@ class Login extends Connection {
         action: "login",
         msg: {
           text: "Login Ok",
+          users: Object.values(listUsers),
           move: moves,
         },
         name: this.data.name,
