@@ -18,6 +18,7 @@ export const makeGame = () => {
   const context = canvas.getContext("2d");
 
   document.querySelector(".buttonLogout").addEventListener("click", exit);
+
   game = new Game(canvas, context, keyUpHandler, keyDownHandler, mazeMatrix);
 
   game.setLoop(() => {
