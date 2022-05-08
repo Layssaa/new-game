@@ -1,7 +1,7 @@
 {
-  "name": "online-drawing-kenji",
+  "name": "new-game",
   "version": "1.0.0",
-  "description": "\"A game like Gartic\"",
+  "description": "\"New Game\"",
   "main": "backend/app.js",
   "scripts": {
     "dev:build": "yarn build & nodemon backend/app.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Miguel-EpicJS/online-drawing-kenji.git"
+    "url": "git+https://github.com/Layssaa/new-game.git"
   },
   "contributors": [
     {
@@ -23,9 +23,9 @@
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Miguel-EpicJS/online-drawing-kenji/issues"
+    "url": "https://github.com/Layssaa/new-game/issues"
   },
-  "homepage": "https://github.com/Miguel-EpicJS/online-drawing-kenji#readme",
+  "homepage": "https://github.com/Layssaa/new-game#readme",
   "dependencies": {
     "crypto": "^1.0.1",
     "dotenv": "^16.0.0",
