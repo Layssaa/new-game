@@ -1,13 +1,8 @@
 import { backgroundImage, frogImage } from "../html-content/images.js";
+import { soundAlfrog, soundBack, soundWinner } from "../html-content/sounds";
 
 class ControlGame {
-  constructor(
-    _canvas,
-    _context,
-    _keyUpHandler,
-    _keyDownHandler,
-    _matrix,
-  ) {
+  constructor(_canvas, _context, _keyUpHandler, _keyDownHandler, _matrix) {
     this.matrix = _matrix;
     this.keyUpHandler = _keyUpHandler;
     this.keyDownHandler = _keyDownHandler;
@@ -30,16 +25,9 @@ class ControlGame {
     this.frogSrc = frogImage;
     this.backgroundSrc = backgroundImage;
 
-
-    this.bgm = new Audio(
-      "https://img.pikbest.com/houzi/audio/original/2020/09/28/e9d3a31f126f972f5217e905ac95c919.mp3"
-    );
-    this.frogAudio = new Audio(
-      "https://audio-previews.elements.envatousercontent.com/files/294506401/preview.mp3?response-content-disposition=attachment%3B+filename%3D%225EK8XSM-vibrant-game-frog-item.mp3%22"
-    );
-    this.finishGame = new Audio(
-      "https://pic.pikbest.com/00/50/03/534888piCVWT.mp3"
-    );
+    this.bgm = new Audio(soundBack);
+    this.frogAudio = new Audio(soundAlfrog);
+    this.finishGame = new Audio(soundWinner);
 
     this.sendMoves = function () {};
     this.infoPlayer = {};
