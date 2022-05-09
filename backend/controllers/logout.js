@@ -34,6 +34,7 @@ class Logout extends Disconnection {
             name: "server",
             msg: {
               text: `${this.userLeft} saiu do canal.`,
+              users: Object.values(listUsers),
             },
             hour: this.hour,
             path: "logout",
@@ -49,6 +50,7 @@ class Logout extends Disconnection {
         status: 200,
         msg: {
           text: "Logout OK",
+          users: Object.values(listUsers),
         },
         ok: true,
         path: "logout",
