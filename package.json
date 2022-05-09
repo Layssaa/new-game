@@ -8,7 +8,8 @@
     "test": "sudo node ./backend/server.js",
     "start": "node backend/app.js",
     "build": "webpack",
-    "dev": "nodemon backend/app.js"
+    "dev": "nodemon backend/app.js",
+    "webpack:server" :"./node_modules/.bin/webpack-dev-server --config webpack.config.js"
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,6 @@
+import { backgroundImage, frogImage } from "../html-content/images.js";
+import { soundAlfrog, soundBack, soundWinner } from "../html-content/sounds";
+
 class ControlGame {
   constructor(_canvas, _context, _keyUpHandler, _keyDownHandler, _matrix) {
     this.matrix = _matrix;
@@ -9,21 +12,35 @@ class ControlGame {
     this.canvasHeight = this.canvas.height;
     this.tileSize = 96;
     this.tileSrcSize = 96;
+
+    this.loadingBackground = true;
+    this.loadingFrog = true;
+
     this.background = new Image();
     this.frogImage = new Image();
-    this.bgm = new Audio(
-      "https://img.pikbest.com/houzi/audio/original/2020/09/28/e9d3a31f126f972f5217e905ac95c919.mp3"
-    );
-    this.frogAudio = new Audio(
-      "https://audio-previews.elements.envatousercontent.com/files/294506401/preview.mp3?response-content-disposition=attachment%3B+filename%3D%225EK8XSM-vibrant-game-frog-item.mp3%22"
-    );
-    this.finishGame = new Audio(
-      "https://pic.pikbest.com/00/50/03/534888piCVWT.mp3"
-    );
+
+    this.background.onload = this.setLoadingBackground();
+    this.frogImage.onload = this.setLoadingFrog();
+
+    this.frogSrc = frogImage;
+    this.backgroundSrc = backgroundImage;
+
+    this.bgm = new Audio(soundBack);
+    this.frogAudio = new Audio(soundAlfrog);
+    this.finishGame = new Audio(soundWinner);
+
     this.sendMoves = function () {};
     this.infoPlayer = {};
     this.winner;
     this.movesPlayers = {};
+  }
+
+  setLoadingBackground() {
+    this.loadingBackground = false;
+  }
+
+  setLoadingFrog() {
+    this.loadingFrog = false;
   }
 
   update(_left, _up, _right, _down, _space, _downListener, _upListener) {
@@ -93,15 +110,17 @@ class ControlGame {
   }
 
   renderizeCanvas() {
+    if (this.loadingBackground || this.loadingFrog) {
+      return;
+    }
+
     this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.context.save();
 
     this.context.translate(-this.camera.x, -this.camera.y);
 
-    this.background.src =
-      "https://user-images.githubusercontent.com/78851164/166344197-c76f686c-6fa9-4e59-a129-ed67d2dda4b3.png";
-    this.frogImage.src =
-      "https://user-images.githubusercontent.com/78851164/166346058-ff6fe5a5-3543-459d-8c4c-356b636df9c8.png";
+    this.frogImage.src = this.frogSrc;
+    this.background.src = this.backgroundSrc;
 
     for (let row in this.matrix) {
       for (let column in this.matrix[row]) {
@@ -340,7 +359,7 @@ class ControlGame {
     const { name, move, id, direction } = dataPLayer;
 
     if (!move[0] && !move[1]) {
-      delete this.movesPlayers[`${id}`]
+      delete this.movesPlayers[`${id}`];
       return;
     }
 
