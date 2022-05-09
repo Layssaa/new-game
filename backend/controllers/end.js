@@ -1,4 +1,4 @@
-const { listUsers, winner, resetAll } = require("../__mock__/data-mock");
+const { listUsers, winner } = require("../__mock__/data-mock");
 const { Connection } = require("./connection");
 
 class EndGame extends Connection {
@@ -38,16 +38,6 @@ class EndGame extends Connection {
     super.sendMessage({ name, path, action, params });
     
     this.notifyWinner();
-
-    resetAll();
-
-    for (let variableKey in listUsers){
-      if (listUsers.hasOwnProperty(variableKey)){
-          delete listUsers[variableKey];
-      }
-    }
-    delete this.ws.id
-    super.getChatList();
 
     setTimeout(() => {
       this.resetTimeOut(list);

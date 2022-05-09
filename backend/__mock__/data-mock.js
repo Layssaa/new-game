@@ -13,23 +13,6 @@ let moves = {
   user_mock: [],
 };
 
-function resetAll() {
-  playersWS = [];
-  listUsers = {};
-
-  channels = {
-    general: [],
-  };
-
-  winner = {};
-
-  actualPlayer;
-
-  moves = {
-    user_mock: [],
-  };
-}
-
 module.exports = {
   playersWS,
   listUsers,
@@ -37,5 +20,4 @@ module.exports = {
   actualPlayer,
   moves,
   winner,
-  resetAll,
 };
