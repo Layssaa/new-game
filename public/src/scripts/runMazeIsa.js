@@ -39,9 +39,19 @@ export const makeGame = () => {
 
 function readPaths(response) {
   const res = JSON.parse(response.data);
+  const nameBoard = document.getElementById("nameboard");
 
   if (res.path === "erro" && res.msg.text === "Repeated name") {
     return setMessage("Esse nome já está sendo usado.");
+  }
+  console.log(res.msg);
+
+  if (res.path === "login" || res.path === "entry")  {
+    nameBoard.innerHTML = ` `;
+
+    res.msg.users.forEach((name) => {
+      nameBoard.innerHTML += `<p>(${name})</p>`;
+    });
   }
 
   if (res.path === "login" && res.ok) {
@@ -49,14 +59,6 @@ function readPaths(response) {
     makeGame();
 
     const receivedId = res.id;
-
-    const nameBoard = document.getElementById("nameboard");
-
-    nameBoard.innerHTML = ` `;
-
-    res.msg.users.forEach((name) => {
-      nameBoard.innerHTML += `<p>(${name})</p>`;
-    });
 
     localStorage.setItem("id", receivedId);
     localStorage.setItem("nickname", res.name);
@@ -77,6 +79,8 @@ function readPaths(response) {
   }
 
   if (res.path === "end" && res.id !== id) {
+    nameBoard.innerHTML = ` `;
+    
     game.setWinner(res.id);
     winnerPopUp(res.name);
     game.keyBlocker();

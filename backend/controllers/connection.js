@@ -20,21 +20,26 @@ class Connection {
   }
 
   duplicateName() {
-    if (this.chatList.find((obj) => obj.name === this.data.name)) {
-      this.ws.send(
-        JSON.stringify({
-          status: 401,
-          action: "entry",
-          msg: {
-            text: "Repeated name",
-          },
-          ok: false,
-          path: "erro",
-          hour: this.hour,
-        })
-      );
-      return true;
+    try {
+      if (this.chatList.find((obj) => obj.name === this.data.name)) {
+        this.ws.send(
+          JSON.stringify({
+            status: 401,
+            action: "entry",
+            msg: {
+              text: "Repeated name",
+            },
+            ok: false,
+            path: "erro",
+            hour: this.hour,
+          })
+        );
+        return true;
+      }  
+    } catch (error) {
+      
     }
+    
     return false;
   }
 
@@ -98,6 +103,7 @@ class Connection {
             name,
             msg: {
               ...params,
+              users: Object.values(listUsers),
             },
             hour: this.hour,
             path,

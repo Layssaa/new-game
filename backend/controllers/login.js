@@ -38,6 +38,7 @@ class Login extends Connection {
             name: "server",
             msg: {
               text: `${listUsers[this.data.id]} entrou no canal.`,
+              users: Object.values(listUsers),
             },
             hour: this.hour,
             path: "entry",
