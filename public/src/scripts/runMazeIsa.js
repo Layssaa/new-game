@@ -51,14 +51,6 @@ function readPaths(response) {
 
     const receivedId = res.id;
 
-    const nameBoard = document.getElementById("nameboard");
-
-    nameBoard.innerHTML = ` `;
-
-    res.msg.users.forEach((name) => {
-      nameBoard.innerHTML += `<p>(${name})</p>`;
-    });
-
     localStorage.setItem("id", receivedId);
     localStorage.setItem("nickname", res.name);
     game.setInfoPlayer({
