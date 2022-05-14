@@ -1,7 +1,7 @@
 class Player {
   constructor(_nickname) {
     this.nickname = _nickname;
-    this.socket = new WebSocket("wss://108.61.142.190:443");
+    this.socket = new WebSocket("wss://alfrog.netlify.app:443");
     this.disabled = false;
     this.errors = [];
     this.channel = "general";
