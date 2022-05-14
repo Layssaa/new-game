@@ -29,7 +29,7 @@ class ControlGame {
     this.frogAudio = new Audio(soundAlfrog);
     this.finishGame = new Audio(soundWinner);
 
-    this.sendMoves = function () {};
+    this.sendMoves = function () { };
     this.infoPlayer = {};
     this.winner;
     this.movesPlayers = {};
@@ -70,8 +70,12 @@ class ControlGame {
     }
 
     for (let i in this.walls) {
-      const wall = this.walls[i];
-      this.wallCollision(this.player, wall);
+      
+      if (this.rand[i] < 0.75) {
+        const wall = this.walls[i];
+        this.wallCollision(this.player, wall);
+        
+      }
     }
 
     for (let i in this.exits) {
@@ -188,6 +192,7 @@ class ControlGame {
 
   createMaze() {
     this.walls = [];
+    this.rand = [];
     this.exits = [];
     this.starts = [];
 
@@ -205,8 +210,10 @@ class ControlGame {
             width: this.tileSize,
             height: this.tileSize,
           };
+          const rand = Math.random();
 
           this.walls.push(wall);
+          this.rand.push(rand);
         }
 
         if (tile === 2) {
